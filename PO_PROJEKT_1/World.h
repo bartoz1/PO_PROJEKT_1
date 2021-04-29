@@ -17,8 +17,8 @@ public:
 	~World();
 	void playRound();
 	FIELD_STATE getFieldState(Position* position) const;
-	Position getNextAvailablePosition(Position current, DIRECTION desired_dir) const;		// zwrocenie wolnej pozycji obok current
-	Position getNextPosition(Position current, DIRECTION desired_dir) const;				// zwrocenie losowej pozycji obok current
+	//Position getNextAvailablePosition(Position current, DIRECTION desired_dir) const;		// zwrocenie wolnej pozycji obok current
+	//Position getNextPosition(Position current, DIRECTION desired_dir) const;				// zwrocenie losowej pozycji obok current
 	void drawWorld();
 	void moveOrganismOnMap(Organism* organism, Position position);
 	Organism* getOrganismByPos(Position position);											// zwrocenie organizmu z danej pozycji na mapie

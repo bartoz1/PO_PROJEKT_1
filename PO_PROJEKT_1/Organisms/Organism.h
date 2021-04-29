@@ -9,9 +9,10 @@ class Organism abstract{
 	int age;
 	Position position;
 	std::string name;
+	ORGANISMS type;
 public:
 	//Organism(World& world);
-	Organism(World& world, int pos_x, int pos_y, int initiative, int strenght, std::string name);
+	Organism(World& world, int pos_x, int pos_y, int initiative, int strenght, std::string name, ORGANISMS type);
 	virtual void action() = 0;
 	virtual void collision(Organism* otherOrganism) = 0;
 	virtual void draw() = 0;	
@@ -20,6 +21,7 @@ public:
 	int getStrenght() const;
 	int getInitiative() const;
 	int getAge() const;
+	ORGANISMS getOrganismType() const;
 	std::string getName() const;
 	Position getPosition() const;
 	//World& getWorld() const;

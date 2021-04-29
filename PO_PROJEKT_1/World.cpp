@@ -87,6 +87,7 @@ FIELD_STATE World::getFieldState(Position *position) const {
 	return position->state;
 	
 }
+/*
 Position World::getNextAvailablePosition(Position current, DIRECTION desired_dir) const {
 
 	Position tmp;
@@ -139,7 +140,7 @@ Position World::getNextPosition(Position current, DIRECTION desired_dir) const {
 	}
 	current.state = NOTAVAILABLE;
 	return current;
-}
+}*/
 void World::clearPositionOnMap(Position position) {
 	worldMap[position.y][position.x] = nullptr;
 }
@@ -239,11 +240,15 @@ bool World::areDifferentPos(Position pos1, Position pos2) {
 
 void World::playRound() {
 	debugInfo();
+	int licznik=0;
 	for (Organism* organism : organismList) {
+		if (organism != nullptr) {
+			organism->action();
+			organism->incrementAge();
+
+		}
+		licznik++;
 		
-		organism->action();
-		
-		organism->incrementAge();
 		//std::cout << "+ ";
 	}
 	//std::cout << "\n";
