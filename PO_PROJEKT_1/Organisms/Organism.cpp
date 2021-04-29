@@ -5,8 +5,8 @@
 //	age = 0;
 //	world = nullptr;
 //}
-Organism::Organism(World& world, int pos_x, int pos_y, int initiative, int strenght)
-	: world(world), initiative(initiative), strenght(strenght) {
+Organism::Organism(World& world, int pos_x, int pos_y, int initiative, int strenght, std::string name)
+	: world(world), initiative(initiative), strenght(strenght), name(name) {
 	this->age = 0;
 	this->position.x = pos_x;
 	this->position.y = pos_y;
@@ -27,6 +27,9 @@ int Organism::getInitiative() const{
 int Organism::getAge() const{
 	return this->age;
 }
+std::string Organism::getName() const {
+	return this->name;
+}
 Position Organism::getPosition() const{
 	return this->position;
 }
@@ -45,6 +48,10 @@ void Organism::setInitiative(int initiative){
 
 void Organism::setAge(int age){
 	this->age = age;
+}
+
+void Organism::setName(std::string name) {
+	this->name = name;
 }
 
 void Organism::setPosition(Position position){

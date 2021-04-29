@@ -7,7 +7,7 @@ using namespace std;
 
 int main() {
     std::string wejscie;
-    World mars(10, 5);
+    World mars(5, 3);
     mars.drawWorld();
     
     while (true) {

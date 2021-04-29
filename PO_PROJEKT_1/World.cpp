@@ -19,8 +19,14 @@ World::World(int w, int h)
 	worldMap[0][0] = new Wolf(*this, 0, 0);
 	organismList.push_back(worldMap[0][0]);
 
-	worldMap[1][1] = new Wolf(*this, 1, 1);
-	organismList.push_back(worldMap[1][1]);
+	//worldMap[1][1] = new Wolf(*this, 1, 1);
+	//organismList.push_back(worldMap[1][1]);
+
+	worldMap[2][2] = new Wolf(*this, 2, 2);
+	organismList.push_back(worldMap[2][2]);
+
+	worldMap[2][0] = new Wolf(*this, 0, 2);
+	organismList.push_back(worldMap[2][0]);
 
 	/* initialize random seed: */
 	srand(time(NULL));
@@ -77,7 +83,7 @@ FIELD_STATE World::getFieldState(Position *position) const {
 	return position->state;
 	
 }
-Position World::getNextAvailablePosition(Position current, DIRECTION desired_dir) const{
+Position World::getNextAvailablePosition(Position current, DIRECTION desired_dir) const {
 
 	Position tmp;
 	for (int i = 0; i < 4; i++) {		// petla przechodz¹ca po wszystkich 
@@ -133,6 +139,24 @@ Position World::getNextPosition(Position current, DIRECTION desired_dir) const {
 void World::clearPositionOnMap(Position position) {
 	worldMap[position.y][position.x] = nullptr;
 }
+// przepisanie bornOrganismList do odpowiednich miejsc w organismList
+void World::upadateOrganizmList() {
+	int insert_at;
+	Organism* insert_before;
+
+	for (Organism* bornOrganism : bornOrganismList) {
+		insert_before = organismList.front();
+		insert_at = 0;
+		for (Organism* organism : organismList) {
+			if (bornOrganism->getInitiative() > organism->getInitiative())
+				break;
+
+			insert_at++;
+		}
+		organismList.insert(organismList.begin() + insert_at, bornOrganism);
+	}
+	bornOrganismList.clear();
+}
 void World::moveOrganismOnMap(Organism* organism, Position position) {
 	clearPositionOnMap(organism->getPosition());
 	worldMap[position.y][position.x] = organism;
@@ -150,8 +174,73 @@ void World::deleteOrganism(Organism* organism) {
 	delete organism;
 }
 
-void World::playRound() {
-	for (auto& organism : organismList) {
-		organism->action();
+void World::addOrganism(ORGANISMS organismType, Position position) {
+	Organism* newOrganism = nullptr;
+	switch (organismType)
+	{
+	case HUMAN:
+		break;
+	case WOLF:
+		newOrganism = new Wolf(*this, position.x, position.y);
+		break;
+	case SHEEP:
+		break;
+	case FOX:
+		break;
+	case TURTLE:
+		break;
+	case ANTELOPE:
+		break;
+	case CYBER_SHEEP:
+		break;
+	case GRASS:
+		break;
+	case DANDELION:
+		break;
+	case GUARANA:
+		break;
+	case WOLF_BERRIES:
+		break;
+	case PINE_BORSCHT:
+		break;
+	default:
+		break;
 	}
+	bornOrganismList.push_back(newOrganism);
+	/*
+	// dodanie do listy organizmow
+	Organism* insert_before = organismList.front();
+	int insert_at = 0;
+	for (Organism* organism : organismList) {
+		if (newOrganism->getInitiative() > organism->getInitiative()) 
+			break;
+		
+		insert_at++;
+	}
+	organismList.insert(organismList.begin() + insert_at, newOrganism);*/
+	//dodanie na mape
+	worldMap[position.y][position.x] = newOrganism;
+}
+
+bool World::areDifferentPos(Position pos1, Position pos2) {
+	if (pos1.x != pos2.x)
+		return true;
+	if (pos1.y != pos2.y)
+		return true;
+	return false;
+}
+
+
+void World::playRound() {
+	for (Organism* organism : organismList) {
+		
+		
+		organism->action();
+		
+		organism->incrementAge();
+		//std::cout << "+ ";
+	}
+	//std::cout << "\n";
+	upadateOrganizmList();
+
 }
