@@ -4,6 +4,7 @@
 #include <time.h>       /* time */
 #include <algorithm>	// remove and remove_if
 #include "Organisms/Animals/Wolf.h"
+#include "Organisms/Animals/Sheep.h"
 
 World::World(int w, int h)
 	:worldHeight(h), worldWidth(w) {
@@ -25,7 +26,7 @@ World::World(int w, int h)
 	worldMap[2][2] = new Wolf(*this, 2, 2);
 	organismList.push_back(worldMap[2][2]);
 
-	worldMap[2][0] = new Wolf(*this, 0, 2);
+	worldMap[2][0] = new Sheep(*this, 0, 2);
 	organismList.push_back(worldMap[2][0]);
 
 	/* initialize random seed: */

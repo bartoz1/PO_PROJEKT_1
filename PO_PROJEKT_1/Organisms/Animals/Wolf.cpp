@@ -1,7 +1,7 @@
 #include "Wolf.h"
 #include <iostream>
 Wolf::Wolf(World& world, int pos_x, int pos_y)
-	:Animal(world, pos_x, pos_y, 1, 2, "Wolf") {
+	:Animal(world, pos_x, pos_y, 5, 9, "Wolf") {
 }
 void Wolf::draw() {
 	std::cout << "W";

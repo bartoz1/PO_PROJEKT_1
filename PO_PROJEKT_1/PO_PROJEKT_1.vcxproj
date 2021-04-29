@@ -151,6 +151,7 @@
     <ClCompile Include="Organisms\Animals\Wolf.cpp" />
     <ClCompile Include="Organisms\Organism.cpp" />
     <ClCompile Include="PO_PROJEKT_1.cpp" />
+    <ClCompile Include="Sheep.cpp" />
     <ClCompile Include="World.cpp" />
     <ClCompile Include="Common.h" />
   </ItemGroup>
@@ -158,6 +159,7 @@
     <ClInclude Include="Organisms\Animals\Animal.h" />
     <ClInclude Include="Organisms\Animals\Wolf.h" />
     <ClInclude Include="Organisms\Organism.h" />
+    <ClInclude Include="Sheep.h" />
     <ClInclude Include="World.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
