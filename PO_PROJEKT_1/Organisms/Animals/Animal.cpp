@@ -13,7 +13,7 @@ void Animal::action() {
 
 	switch (next_pos.state)	{
 	case NOTAVAILABLE:		// brak mozliwosci ruchu
-		
+		std::cout << this->getName() << "nie moze sie poruszyc\n";
 		break;
 	case OCCUPIED:			// fight lub rozmnazanie
 		std::cout << "PROBA INTERAKCJI\n";

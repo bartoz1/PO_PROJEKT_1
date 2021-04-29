@@ -26,8 +26,11 @@ World::World(int w, int h)
 	worldMap[2][2] = new Wolf(*this, 2, 2);
 	organismList.push_back(worldMap[2][2]);
 
-	worldMap[2][0] = new Sheep(*this, 0, 2);
-	organismList.push_back(worldMap[2][0]);
+	worldMap[2][6] = new Sheep(*this, 6, 2);
+	organismList.push_back(worldMap[2][6]);
+
+	worldMap[3][3] = new Sheep(*this, 3, 3);
+	organismList.push_back(worldMap[3][3]);
 
 	/* initialize random seed: */
 	srand(time(NULL));
@@ -35,9 +38,9 @@ World::World(int w, int h)
 World::~World() {
 
 	for (int i = 0; i < worldHeight; i++) {
-		delete[] worldMap[i];
+		//delete[] worldMap[i];
 	}
-	delete[] worldMap;
+	//delete[] worldMap;
 }
 void World::clearMap() {
 	for (int i = 0; i < worldHeight; i++) {
@@ -59,7 +62,7 @@ void World::drawWorld() {
 		for (int j = 0; j < worldWidth;j++) {
 			//std::cout << "\033[32m" << worldMap[i][j] << "\033[0m" << " ";
 			if (worldMap[i][j] == nullptr)
-				std::cout << "\033[32m"<<" " << "\033[0m";
+				std::cout <<"`";
 			else
 				worldMap[i][j]->draw();
 			std::cout << " ";
@@ -170,8 +173,9 @@ Organism* World::getOrganismByPos(Position position) {
 
 void World::deleteOrganism(Organism* organism) {
 
-	worldMap[organism->getPosition().y][organism->getPosition().y] = nullptr;
+	worldMap[organism->getPosition().y][organism->getPosition().x] = nullptr;
 	organismList.erase(std::remove(organismList.begin(), organismList.end(), organism), organismList.end());
+	bornOrganismList.erase(std::remove(bornOrganismList.begin(), bornOrganismList.end(), organism), bornOrganismList.end());
 	delete organism;
 }
 
@@ -185,6 +189,7 @@ void World::addOrganism(ORGANISMS organismType, Position position) {
 		newOrganism = new Wolf(*this, position.x, position.y);
 		break;
 	case SHEEP:
+		newOrganism = new Sheep(*this, position.x, position.y);
 		break;
 	case FOX:
 		break;
@@ -233,8 +238,8 @@ bool World::areDifferentPos(Position pos1, Position pos2) {
 
 
 void World::playRound() {
+	debugInfo();
 	for (Organism* organism : organismList) {
-		
 		
 		organism->action();
 		
@@ -244,4 +249,16 @@ void World::playRound() {
 	//std::cout << "\n";
 	upadateOrganizmList();
 
+}
+
+void World::debugInfo() {
+	std::cout << "====DEBUG INFO====\n";
+	for (Organism* organism : organismList) {
+		std::cout << organism->getName() << "( " << organism->getPosition().x << ", " << organism->getPosition().y << " )\n";
+	}
+	std::cout << "narodzone:\n";
+	for (Organism* organism : bornOrganismList) {
+		std::cout << organism->getName() << "( " << organism->getPosition().x << ", " << organism->getPosition().y << " )\n";
+	}
+	std::cout << "====DEBUG INFO====\n";
 }

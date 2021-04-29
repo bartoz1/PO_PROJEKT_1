@@ -55,7 +55,8 @@ void Organism::setName(std::string name) {
 }
 
 void Organism::setPosition(Position position){
-	this->position = position;
+	this->position.x = position.x;
+	this->position.y = position.y;
 }
 
 void Organism::incrementAge() {

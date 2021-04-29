@@ -10,10 +10,10 @@ int main() {
     World mars(10, 10);
     mars.drawWorld();
     
-    while (true) {
+    while (wejscie != "x") {
+        cin >> wejscie;
         mars.playRound();
         mars.drawWorld();
-        cin >> wejscie;
     }
     
 }

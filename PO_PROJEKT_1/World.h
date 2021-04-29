@@ -30,6 +30,7 @@ private:
 	void clearMap();
 	void clearPositionOnMap(Position position);
 	void upadateOrganizmList();
+	void debugInfo();
 
 };
 
