@@ -2,6 +2,7 @@
 #include <iostream>
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
+#include "Organisms/Animals/Wolf.h"
 
 World::World(int w, int h)
 	:worldHeight(h), worldWidth(w) {
@@ -10,9 +11,12 @@ World::World(int w, int h)
 	worldMap = new Organism**[h];
 
 	for (int i = 0; i < worldHeight; i++) {
-		worldMap[i] = new Organism*[w];
+		worldMap[i] = new Organism*[w];	
 	}
 	clearMap();
+
+	worldMap[0][0] = new Wolf(*this, 0, 0);
+	organismList.push_back(worldMap[0][0]);
 
 	/* initialize random seed: */
 	srand(time(NULL));
@@ -44,10 +48,9 @@ void World::drawWorld() {
 		for (int j = 0; j < worldWidth;j++) {
 			//std::cout << "\033[32m" << worldMap[i][j] << "\033[0m" << " ";
 			if (worldMap[i][j] == nullptr)
-				std::cout << "M";
+				std::cout << "\033[32m"<<" " << "\033[0m";
 			else
-				std::cout << "P";
-				//worldMap[i][j]->draw();
+				worldMap[i][j]->draw();
 			std::cout << " ";
 		}
 		std::cout << '|';
@@ -122,4 +125,30 @@ Position World::getNextPosition(Position current, DIRECTION desired_dir) const {
 	}
 	current.state = NOTAVAILABLE;
 	return current;
+}
+void World::clearPositionOnMap(Position position) {
+	worldMap[position.y][position.x] = nullptr;
+}
+void World::moveOrganismOnMap(Organism* organism, Position position) {
+	clearPositionOnMap(organism->getPosition());
+	worldMap[position.y][position.x] = organism;
+	organism->setPosition(position);
+}
+
+Organism* World::getOrganismByPos(Position position) {
+	return worldMap[position.y][position.x];
+}
+
+void World::deleteOrganism(Organism* organism) {
+
+	worldMap[organism->getPosition().y][organism->getPosition().y] = nullptr;
+	//organismList.erase();
+
+	delete organism;
+}
+
+void World::playRound() {
+	for (auto& organism : organismList) {
+		organism->action();
+	}
 }

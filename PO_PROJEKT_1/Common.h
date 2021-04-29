@@ -1,12 +1,20 @@
 #ifndef COMMON_INCLUDED
 #define COMMON_INCLUDED
 
+enum FIELD_STATE {
+    AVAILABLE,
+    OCCUPIED,
+    BORDER,
+    NOTAVAILABLE,
+    UNKNOWN
+};
+
 struct Position {
     int x, y;
     FIELD_STATE state;
-    Position() :x(0), y(0) {};
+    Position() :x(0), y(0), state(UNKNOWN) {};
     Position(int x, int y)
-        :x(x), y(y) {};
+        :x(x), y(y), state(UNKNOWN) {};
 };
 
 enum DIRECTION {
@@ -32,12 +40,5 @@ enum ORGANISMS {
 
 };
 
-
-enum FIELD_STATE {
-    AVAILABLE,
-    OCCUPIED,
-    BORDER,
-    NOTAVAILABLE
-};
 
 #endif 

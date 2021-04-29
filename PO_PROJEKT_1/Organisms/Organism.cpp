@@ -5,9 +5,17 @@
 //	age = 0;
 //	world = nullptr;
 //}
-Organism::Organism(World& world, Position &position, int initiative, int strenght)
-	: world(world), position(position), initiative(initiative), strenght(strenght) {
+Organism::Organism(World& world, int pos_x, int pos_y, int initiative, int strenght)
+	: world(world), initiative(initiative), strenght(strenght) {
 	this->age = 0;
+	this->position.x = pos_x;
+	this->position.y = pos_y;
+}
+
+bool Organism::willSurviveAttack(Organism& enemy) {
+	if (enemy.getStrenght() >= this->getStrenght())
+		return false;
+	return true;
 }
 
 int Organism::getStrenght() const{

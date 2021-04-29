@@ -7,14 +7,14 @@ class Organism abstract{
 	int initiative;
 	int age;
 	Position position;
-protected:
-	World& world;
+
 public:
 	//Organism(World& world);
-	Organism(World& world, Position& position, int initiative, int strenght);
+	Organism(World& world, int pos_x, int pos_y, int initiative, int strenght);
 	virtual void action() = 0;
 	virtual void collision() = 0;
-	virtual void draw() =0;
+	virtual void draw() = 0;
+	virtual bool willSurviveAttack(Organism& enemy);
 
 	int getStrenght() const;
 	int getInitiative() const;
@@ -29,6 +29,9 @@ public:
 
 	void incrementAge();
 	void move(int dx, int dy);
+protected:
+	World& world;
+private:
 
 	//~Organism();
 };

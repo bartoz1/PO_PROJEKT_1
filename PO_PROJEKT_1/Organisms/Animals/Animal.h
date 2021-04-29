@@ -2,7 +2,8 @@
 #include "../Organism.h"
 
 class Animal abstract: public Organism {
-	Animal(World& world, Position& position, int initiative, int strenght);
+public:
+	Animal(World& world, int pos_x, int pos_y, int initiative, int strenght);
 	void action() override;
 	void collision() override;
 };
