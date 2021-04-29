@@ -2,6 +2,7 @@
 #include <iostream>
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
+#include <algorithm>	// remove and remove_if
 #include "Organisms/Animals/Wolf.h"
 
 World::World(int w, int h)
@@ -17,6 +18,9 @@ World::World(int w, int h)
 
 	worldMap[0][0] = new Wolf(*this, 0, 0);
 	organismList.push_back(worldMap[0][0]);
+
+	worldMap[1][1] = new Wolf(*this, 1, 1);
+	organismList.push_back(worldMap[1][1]);
 
 	/* initialize random seed: */
 	srand(time(NULL));
@@ -142,8 +146,7 @@ Organism* World::getOrganismByPos(Position position) {
 void World::deleteOrganism(Organism* organism) {
 
 	worldMap[organism->getPosition().y][organism->getPosition().y] = nullptr;
-	//organismList.erase();
-
+	organismList.erase(std::remove(organismList.begin(), organismList.end(), organism), organismList.end());
 	delete organism;
 }
 
