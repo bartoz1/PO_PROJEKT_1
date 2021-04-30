@@ -1,3 +1,8 @@
-﻿  World.cpp
-C:\Users\nil11\source\repos\PO_PROJEKT_1\PO_PROJEKT_1\World.cpp(36,12): warning C4244: "argument": konwersja z "time_t" do "unsigned int", możliwa utrata danych
+﻿  Animal.cpp
+  Human.cpp
+  Turtle.cpp
+  World.cpp
+C:\Users\nil11\source\repos\PO_PROJEKT_1\PO_PROJEKT_1\World.cpp(51,12): warning C4244: "argument": konwersja z "time_t" do "unsigned int", możliwa utrata danych
+C:\Users\nil11\source\repos\PO_PROJEKT_1\PO_PROJEKT_1\World.cpp(225,20): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+  Generowanie kodu...
   PO_PROJEKT_1.vcxproj -> C:\Users\nil11\source\repos\PO_PROJEKT_1\Debug\PO_PROJEKT_1.exe

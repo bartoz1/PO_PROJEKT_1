@@ -26,6 +26,7 @@ public:
 	void addOrganism(ORGANISMS organismType, Position position);
 	//void createNewAnimal(Organism* parent1, Organism* parent2);
 	bool areDifferentPos(Position pos1, Position pos2);
+	bool drawTruth(int percent);																// funckja losuj¹ca (prawda lub falsz) z prawdopo procent %
 private:
 	void clearMap();
 	void clearPositionOnMap(Position position);

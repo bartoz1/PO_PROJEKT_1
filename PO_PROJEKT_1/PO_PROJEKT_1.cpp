@@ -11,10 +11,15 @@ int main() {
     mars.drawWorld();
     
     while (wejscie != "x") {
-        cin >> wejscie;
         mars.playRound();
         mars.drawWorld();
+        cin >> wejscie;
     }
+
+    /*for (int i = 0; i < 20; i++) {
+        mars.playRound();
+        mars.drawWorld();
+    }*/
     
 }
 

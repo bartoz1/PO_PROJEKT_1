@@ -8,7 +8,7 @@ Animal::Animal(World& world, int pos_x, int pos_y, int initiative, int strenght,
 }
 void Animal::action() {
 	DIRECTION move_to = (DIRECTION) (rand() % 4);
-	Position next_pos = getNextPosition(getPosition(), move_to);
+	Position next_pos = getNextPosition(move_to);
 	Organism* otherOrganism;
 
 	switch (next_pos.state)	{
@@ -18,7 +18,8 @@ void Animal::action() {
 	case OCCUPIED:			// fight lub rozmnazanie
 		std::cout << "PROBA INTERAKCJI\n";
 		otherOrganism = world.getOrganismByPos(next_pos);
-		collision(otherOrganism);
+		//collision(otherOrganism);
+		otherOrganism->collision(this);
 
 		break;
 	case AVAILABLE:			// wykonanie ruchu
@@ -28,7 +29,7 @@ void Animal::action() {
 		this->setPosition(next_pos);
 		break;
 	default:
-		std::cout << "Wystapil blad podczas wybierania nowej pozycji";
+		std::cout <<this->getName()<< " pozostal na swojej pozycji\n";
 		break;
 	}
 	//this->incrementAge();
@@ -36,28 +37,29 @@ void Animal::action() {
 
 void Animal::collision(Organism* otherOrganism) {
 
-	if (isSameAnimalType(this, otherOrganism)) {
+	if (isSameAnimalType(otherOrganism)) {
 
 		giveBirth(otherOrganism);
 
 	}
-	else if (otherOrganism->willSurviveAttack(*this)) {
-		// smierc tego zwierzecia
-		std::cout << "Zwierze atakujace umarlo \n";
-		world.deleteOrganism(this);
+	else if (this->willSurviveAttack(*otherOrganism)) {
+		// smierc atakujacego zwierzecia
+		std::cout <<otherOrganism->getName()<< " zmarl wykonujac atak na"<<this->getName()<<"\n";
+		world.deleteOrganism(otherOrganism);
 	}
 	else {
-		std::cout << "Zwierze atakujace pokonalo przeciwnika \n";
-		// usuniecie enemy
-		world.deleteOrganism(otherOrganism);
+		std::cout <<otherOrganism->getName() << " zabilo "<<this->getName()<<"\n";
+		Position tmp = this->getPosition();
+		world.moveOrganismOnMap(otherOrganism, tmp);
+		world.deleteOrganism(this);
 
 	}
 }
 
-Position Animal::getNextPosition(Position current, DIRECTION desired_dir) {
+Position Animal::getNextPosition(DIRECTION desired_dir) {
 	Position tmp;
 	for (int i = 0; i < 4; i++) {		// petla przechodz¹ca po wszystkich 
-		tmp = current;
+		tmp = this->getPosition();
 		switch (desired_dir) {
 		case LEFT:
 			tmp.x--;
@@ -72,12 +74,16 @@ Position Animal::getNextPosition(Position current, DIRECTION desired_dir) {
 			tmp.y++;
 			break;
 		}
-		if (world.getFieldState(&tmp) != BORDER)
+		tmp.state = world.getFieldState(&tmp);
+		if (tmp.state != BORDER) {
 			return tmp;
+
+		}
 		desired_dir = (DIRECTION)((desired_dir + 1) % 4);
 	}
-	current.state = NOTAVAILABLE;
-	return current;
+	tmp = this->getPosition();
+	tmp.state = NOTAVAILABLE;
+	return tmp;
 }
 
 Position Animal::getNextAvailablePosition(Position current, DIRECTION desired_dir) {
@@ -106,8 +112,8 @@ Position Animal::getNextAvailablePosition(Position current, DIRECTION desired_di
 	return current;
 }
 
-bool Animal::isSameAnimalType(Organism* animal1, Organism* animal2) {
-	if (animal1->getName() == animal2->getName())
+bool Animal::isSameAnimalType(Organism* animal2) {
+	if (this->getName() == animal2->getName())
 		return true;
 	return false;
 }

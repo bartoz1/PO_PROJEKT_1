@@ -5,6 +5,9 @@
 #include <algorithm>	// remove and remove_if
 #include "Organisms/Animals/Wolf.h"
 #include "Organisms/Animals/Sheep.h"
+#include "Organisms/Animals/Fox.h"
+#include "Organisms/Animals/Turtle.h"
+#include "Organisms/Animals/Antelope.h"
 
 World::World(int w, int h)
 	:worldHeight(h), worldWidth(w) {
@@ -31,6 +34,18 @@ World::World(int w, int h)
 
 	worldMap[3][3] = new Sheep(*this, 3, 3);
 	organismList.push_back(worldMap[3][3]);
+
+	worldMap[7][3] = new Fox(*this, 3, 7);
+	organismList.push_back(worldMap[7][3]);
+
+	worldMap[7][8] = new Fox(*this, 8, 7);
+	organismList.push_back(worldMap[7][8]);
+
+	worldMap[9][9] = new Antelope(*this, 9, 9);
+	organismList.push_back(worldMap[9][9]);
+
+	worldMap[9][5] = new Antelope(*this, 5, 9);
+	organismList.push_back(worldMap[9][5]);
 
 	/* initialize random seed: */
 	srand(time(NULL));
@@ -87,60 +102,7 @@ FIELD_STATE World::getFieldState(Position *position) const {
 	return position->state;
 	
 }
-/*
-Position World::getNextAvailablePosition(Position current, DIRECTION desired_dir) const {
 
-	Position tmp;
-	for (int i = 0; i < 4; i++) {		// petla przechodz¹ca po wszystkich 
-		tmp = current;
-		desired_dir = (DIRECTION)((desired_dir + 1) % 4);
-		switch (desired_dir)
-		{
-		case LEFT:
-			tmp.x--;
-			break;
-		case RIGHT:
-			tmp.x++;
-			break;
-		case TOP:
-			tmp.y--;
-			break;
-		case BOTTOM:
-			tmp.y++;
-			break;
-		}
-		if (getFieldState(&tmp) == AVAILABLE)
-			return tmp;
-	}
-	return current;
-}
-
-Position World::getNextPosition(Position current, DIRECTION desired_dir) const {
-
-	Position tmp;
-	for (int i = 0; i < 4; i++) {		// petla przechodz¹ca po wszystkich 
-		tmp = current;
-		switch (desired_dir)	{
-		case LEFT:
-			tmp.x--;
-			break;
-		case RIGHT:
-			tmp.x++;
-			break;
-		case TOP:
-			tmp.y--;
-			break;
-		case BOTTOM:
-			tmp.y++;
-			break;
-		}
-		if (getFieldState(&tmp) != BORDER )
-			return tmp;
-		desired_dir = (DIRECTION)((desired_dir + 1) % 4);
-	}
-	current.state = NOTAVAILABLE;
-	return current;
-}*/
 void World::clearPositionOnMap(Position position) {
 	worldMap[position.y][position.x] = nullptr;
 }
@@ -150,6 +112,7 @@ void World::upadateOrganizmList() {
 	Organism* insert_before;
 
 	for (Organism* bornOrganism : bornOrganismList) {
+
 		insert_before = organismList.front();
 		insert_at = 0;
 		for (Organism* organism : organismList) {
@@ -173,8 +136,8 @@ Organism* World::getOrganismByPos(Position position) {
 }
 
 void World::deleteOrganism(Organism* organism) {
-
-	worldMap[organism->getPosition().y][organism->getPosition().x] = nullptr;
+	if(worldMap[organism->getPosition().y][organism->getPosition().x] == organism)
+		worldMap[organism->getPosition().y][organism->getPosition().x] = nullptr;
 	organismList.erase(std::remove(organismList.begin(), organismList.end(), organism), organismList.end());
 	bornOrganismList.erase(std::remove(bornOrganismList.begin(), bornOrganismList.end(), organism), bornOrganismList.end());
 	delete organism;
@@ -193,10 +156,13 @@ void World::addOrganism(ORGANISMS organismType, Position position) {
 		newOrganism = new Sheep(*this, position.x, position.y);
 		break;
 	case FOX:
+		newOrganism = new Fox(*this, position.x, position.y);
 		break;
 	case TURTLE:
+		newOrganism = new Turtle(*this, position.x, position.y);
 		break;
 	case ANTELOPE:
+		newOrganism = new Antelope(*this, position.x, position.y);
 		break;
 	case CYBER_SHEEP:
 		break;
@@ -237,21 +203,33 @@ bool World::areDifferentPos(Position pos1, Position pos2) {
 	return false;
 }
 
+bool World::drawTruth(int percent) {
+	if (rand() % 101 < percent) {
+		return true;
+	}
+	return false;
+}
+
 
 void World::playRound() {
 	debugInfo();
 	int licznik=0;
-	for (Organism* organism : organismList) {
+	/*for (Organism* organism : organismList) {
 		if (organism != nullptr) {
 			organism->action();
 			organism->incrementAge();
 
 		}
-		licznik++;
 		
-		//std::cout << "+ ";
+	}*/
+	for (int i = 0; i < organismList.size(); i++) {
+		if (organismList[i] != nullptr) {
+			organismList[i]->incrementAge();
+			organismList[i]->action();
+		}
+		licznik++;
+
 	}
-	//std::cout << "\n";
 	upadateOrganizmList();
 
 }
