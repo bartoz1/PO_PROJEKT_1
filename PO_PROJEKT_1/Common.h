@@ -34,8 +34,8 @@ enum ORGANISMS {
     FOX,
     TURTLE,
     ANTELOPE,
-    CYBER_SHEEP,
     GRASS,
+    CYBER_SHEEP,
     DANDELION,      // mlecz
     GUARANA,
     WOLF_BERRIES,

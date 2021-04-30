@@ -18,6 +18,32 @@ bool Organism::willSurviveAttack(Organism& enemy) {
 	return true;
 }
 
+Position Organism::getNextAvailablePosition(Position current, DIRECTION desired_dir) {
+	Position tmp;
+	for (int i = 0; i < 4; i++) {		// petla przechodz¹ca po wszystkich 
+		tmp = current;
+		desired_dir = (DIRECTION)((desired_dir + 1) % 4);
+		switch (desired_dir)
+		{
+		case LEFT:
+			tmp.x--;
+			break;
+		case RIGHT:
+			tmp.x++;
+			break;
+		case TOP:
+			tmp.y--;
+			break;
+		case BOTTOM:
+			tmp.y++;
+			break;
+		}
+		if (world.getFieldState(&tmp) == AVAILABLE)
+			return tmp;
+	}
+	return current;
+}
+
 int Organism::getStrenght() const{
 	return this->strenght;
 }

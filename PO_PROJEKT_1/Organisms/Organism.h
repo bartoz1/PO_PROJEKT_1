@@ -17,6 +17,7 @@ public:
 	virtual void collision(Organism* otherOrganism) = 0;
 	virtual void draw() = 0;	
 	virtual bool willSurviveAttack(Organism& enemy);
+	virtual Position getNextAvailablePosition(Position current, DIRECTION desired_dir);
 
 	int getStrenght() const;
 	int getInitiative() const;

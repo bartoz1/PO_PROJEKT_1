@@ -147,6 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Organisms\Plants\Grass.cpp" />
     <ClCompile Include="Organisms\Animals\Antelope.cpp" />
     <ClCompile Include="Organisms\Animals\Fox.cpp" />
     <ClCompile Include="Organisms\Animals\Animal.cpp" />
@@ -169,6 +170,7 @@
     <ClInclude Include="Organisms\Animals\Turtle.h" />
     <ClInclude Include="Organisms\Animals\Wolf.h" />
     <ClInclude Include="Organisms\Organism.h" />
+    <ClInclude Include="Organisms\Plants\Grass.h" />
     <ClInclude Include="Organisms\Plants\Plant.h" />
     <ClInclude Include="World.h" />
   </ItemGroup>

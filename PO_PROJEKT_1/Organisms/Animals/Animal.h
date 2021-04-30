@@ -9,7 +9,7 @@ public:
 	virtual void collision(Organism* otherOrganism) override;
 protected:
 	virtual Position getNextPosition(DIRECTION desired_dir);
-	virtual Position getNextAvailablePosition(Position current, DIRECTION desired_dir);
+	//virtual Position getNextAvailablePosition(Position current, DIRECTION desired_dir);
 	bool isSameAnimalType(Organism* animal2);
 	void giveBirth(Organism* parent2);
 private:

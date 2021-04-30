@@ -5,7 +5,7 @@ Turtle::Turtle(World& world, int pos_x, int pos_y)
 	:Animal(world, pos_x, pos_y, 1, 2, "zolw", TURTLE) {
 }
 void Turtle::draw() {
-	std::cout << "T";
+	std::cout << "Z";
 }
 Position Turtle::getNextPosition(DIRECTION desired_dir) {
 	Position tmp;

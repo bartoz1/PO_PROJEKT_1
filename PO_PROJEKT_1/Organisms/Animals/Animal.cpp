@@ -85,7 +85,7 @@ Position Animal::getNextPosition(DIRECTION desired_dir) {
 	tmp.state = NOTAVAILABLE;
 	return tmp;
 }
-
+/*
 Position Animal::getNextAvailablePosition(Position current, DIRECTION desired_dir) {
 	Position tmp;
 	for (int i = 0; i < 4; i++) {		// petla przechodz¹ca po wszystkich 
@@ -110,7 +110,7 @@ Position Animal::getNextAvailablePosition(Position current, DIRECTION desired_di
 			return tmp;
 	}
 	return current;
-}
+}*/
 
 bool Animal::isSameAnimalType(Organism* animal2) {
 	if (this->getName() == animal2->getName())

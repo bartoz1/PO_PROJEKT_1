@@ -9,6 +9,7 @@
 #include "Organisms/Animals/Turtle.h"
 #include "Organisms/Animals/Antelope.h"
 #include "Organisms/Animals/Human.h"
+#include "Organisms/Plants/Grass.h"
 
 World::World(int w, int h)
 	:worldHeight(h), worldWidth(w) {
@@ -49,29 +50,37 @@ void World::clearMap() {
 }
 // Wyrysowanie swiata wraz z obramowaniem
 void World::drawWorld() {
-	std::cout << "+";
+	//std::cout << "+";
+	std::cout << (char)201;
 	for (int j = 0; j < worldWidth * 2 + 1;j++)
-		std::cout << "-";
-	std::cout << '+';
+		std::cout << (char)205;
+		//std::cout << "-";
+	std::cout << (char)187;
+	//std::cout << '+';
 	std::cout << '\n';
 
 	for (int i = 0; i < worldHeight; i++) {
-		std::cout << "| ";
+		//std::cout << "| ";
+		std::cout << (char)186<<" ";
 		for (int j = 0; j < worldWidth;j++) {
 			//std::cout << "\033[32m" << worldMap[i][j] << "\033[0m" << " ";
 			if (worldMap[i][j] == nullptr)
-				std::cout <<"`";
+				std::cout <<"-";
 			else
 				worldMap[i][j]->draw();
 			std::cout << " ";
 		}
-		std::cout << '|';
+		//std::cout << '|';
+		std::cout << (char)186;
 		std::cout << '\n';
 	}
-	std::cout << "+";
+	//std::cout << "+";
+	std::cout << (char)200;
 	for (int j = 0; j < worldWidth*2+1;j++)
-		std::cout << "-";
-	std::cout << '+';
+		std::cout << (char)205;
+		//std::cout << "-";
+	//std::cout << '+';
+	std::cout << (char)188;
 	std::cout << '\n';
 }
 FIELD_STATE World::getFieldState(Position *position) const {
@@ -150,6 +159,7 @@ void World::addOrganism(ORGANISMS organismType, Position position) {
 	case CYBER_SHEEP:
 		break;
 	case GRASS:
+		newOrganism = new Grass(*this, position.x, position.y);
 		break;
 	case DANDELION:
 		break;
