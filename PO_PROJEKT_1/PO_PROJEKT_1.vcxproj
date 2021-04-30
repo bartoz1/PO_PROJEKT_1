@@ -147,6 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Organisms\Plants\Dandelion.cpp" />
     <ClCompile Include="Organisms\Plants\Grass.cpp" />
     <ClCompile Include="Organisms\Animals\Antelope.cpp" />
     <ClCompile Include="Organisms\Animals\Fox.cpp" />
@@ -155,7 +156,10 @@
     <ClCompile Include="Organisms\Animals\Sheep.cpp" />
     <ClCompile Include="Organisms\Animals\Wolf.cpp" />
     <ClCompile Include="Organisms\Organism.cpp" />
+    <ClCompile Include="Organisms\Plants\Guarana.cpp" />
+    <ClCompile Include="Organisms\Plants\PineBorscht.cpp" />
     <ClCompile Include="Organisms\Plants\Plant.cpp" />
+    <ClCompile Include="Organisms\Plants\WolfBerries.cpp" />
     <ClCompile Include="PO_PROJEKT_1.cpp" />
     <ClCompile Include="Organisms\Animals\Turtle.cpp" />
     <ClCompile Include="World.cpp" />
@@ -170,8 +174,12 @@
     <ClInclude Include="Organisms\Animals\Turtle.h" />
     <ClInclude Include="Organisms\Animals\Wolf.h" />
     <ClInclude Include="Organisms\Organism.h" />
+    <ClInclude Include="Organisms\Plants\Dandelion.h" />
     <ClInclude Include="Organisms\Plants\Grass.h" />
+    <ClInclude Include="Organisms\Plants\Guarana.h" />
+    <ClInclude Include="Organisms\Plants\PineBorscht.h" />
     <ClInclude Include="Organisms\Plants\Plant.h" />
+    <ClInclude Include="Organisms\Plants\WolfBerries.h" />
     <ClInclude Include="World.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

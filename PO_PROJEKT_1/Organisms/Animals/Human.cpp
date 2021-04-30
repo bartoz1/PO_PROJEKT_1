@@ -5,7 +5,7 @@ Human::Human(World& world, int pos_x, int pos_y)
 	nextMoveDir = NONE;
 }
 void Human::draw() {
-	std::cout << "C";
+	std::cout << "\033[95m" << (char)02 << "\033[0m";
 }
 
 void Human::action() {

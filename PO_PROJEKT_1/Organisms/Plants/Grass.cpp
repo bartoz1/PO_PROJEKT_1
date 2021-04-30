@@ -6,5 +6,5 @@ Grass::Grass(World& world, int pos_x, int pos_y)
 }
 
 void Grass::draw() {
-	std::cout << (char)05;
+	std::cout << "\033[32m" << (char)05<< "\033[0m";
 }

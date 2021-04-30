@@ -35,11 +35,11 @@ enum ORGANISMS {
     TURTLE,
     ANTELOPE,
     GRASS,
-    CYBER_SHEEP,
     DANDELION,      // mlecz
     GUARANA,
     WOLF_BERRIES,
-    PINE_BORSCHT    // Barszcz Sosnowskiego
+    PINE_BORSCHT,    // Barszcz Sosnowskiego
+    CYBER_SHEEP
 
 };
 

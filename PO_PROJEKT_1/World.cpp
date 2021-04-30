@@ -10,6 +10,10 @@
 #include "Organisms/Animals/Antelope.h"
 #include "Organisms/Animals/Human.h"
 #include "Organisms/Plants/Grass.h"
+#include "Organisms/Plants/Dandelion.h"
+#include "Organisms/Plants/Guarana.h"
+#include "Organisms/Plants/PineBorscht.h"
+#include "Organisms/Plants/WolfBerries.h"
 
 World::World(int w, int h)
 	:worldHeight(h), worldWidth(w) {
@@ -162,12 +166,16 @@ void World::addOrganism(ORGANISMS organismType, Position position) {
 		newOrganism = new Grass(*this, position.x, position.y);
 		break;
 	case DANDELION:
+		newOrganism = new Dandelion(*this, position.x, position.y);
 		break;
 	case GUARANA:
+		newOrganism = new Guarana(*this, position.x, position.y);
 		break;
 	case WOLF_BERRIES:
+		newOrganism = new WolfBerries(*this, position.x, position.y);
 		break;
 	case PINE_BORSCHT:
+		newOrganism = new PineBorscht(*this, position.x, position.y);
 		break;
 	default:
 		break;
