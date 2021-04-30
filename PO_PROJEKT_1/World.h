@@ -1,8 +1,9 @@
 #pragma once
 #include "Common.h"
 #include <vector>
+//#include "Organisms/Animals/Human.h"
 class Organism;
-
+class Human;
 using namespace std;
 
 class World {
@@ -27,11 +28,14 @@ public:
 	//void createNewAnimal(Organism* parent1, Organism* parent2);
 	bool areDifferentPos(Position pos1, Position pos2);
 	bool drawTruth(int percent);																// funckja losuj¹ca (prawda lub falsz) z prawdopo procent %
+	Organism* addHuman();
 private:
 	void clearMap();
 	void clearPositionOnMap(Position position);
 	void upadateOrganizmList();
 	void debugInfo();
+	Position getRandomAvailablePosition();
+
 
 };
 

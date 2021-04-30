@@ -8,6 +8,7 @@
 #include "Organisms/Animals/Fox.h"
 #include "Organisms/Animals/Turtle.h"
 #include "Organisms/Animals/Antelope.h"
+#include "Organisms/Animals/Human.h"
 
 World::World(int w, int h)
 	:worldHeight(h), worldWidth(w) {
@@ -19,36 +20,18 @@ World::World(int w, int h)
 		worldMap[i] = new Organism*[w];	
 	}
 	clearMap();
-
-	worldMap[0][0] = new Wolf(*this, 0, 0);
-	organismList.push_back(worldMap[0][0]);
-
-	//worldMap[1][1] = new Wolf(*this, 1, 1);
-	//organismList.push_back(worldMap[1][1]);
-
-	worldMap[2][2] = new Wolf(*this, 2, 2);
-	organismList.push_back(worldMap[2][2]);
-
-	worldMap[2][6] = new Sheep(*this, 6, 2);
-	organismList.push_back(worldMap[2][6]);
-
-	worldMap[3][3] = new Sheep(*this, 3, 3);
-	organismList.push_back(worldMap[3][3]);
-
-	worldMap[7][3] = new Fox(*this, 3, 7);
-	organismList.push_back(worldMap[7][3]);
-
-	worldMap[7][8] = new Fox(*this, 8, 7);
-	organismList.push_back(worldMap[7][8]);
-
-	worldMap[9][9] = new Antelope(*this, 9, 9);
-	organismList.push_back(worldMap[9][9]);
-
-	worldMap[9][5] = new Antelope(*this, 5, 9);
-	organismList.push_back(worldMap[9][5]);
-
-	/* initialize random seed: */
 	srand(time(NULL));
+	Position pozycja;
+	// dodawanie zwierzat w losowe miejsca
+	for (int i = (int)WOLF;i < (int)CYBER_SHEEP; i += 1) {
+		for (int j = 0; j < 2;j++) {
+			pozycja = getRandomAvailablePosition();
+			if (pozycja.state == NOTAVAILABLE)
+				break;
+			this->addOrganism((ORGANISMS)i, pozycja);
+		}
+
+	}
 }
 World::~World() {
 
@@ -180,17 +163,7 @@ void World::addOrganism(ORGANISMS organismType, Position position) {
 		break;
 	}
 	bornOrganismList.push_back(newOrganism);
-	/*
-	// dodanie do listy organizmow
-	Organism* insert_before = organismList.front();
-	int insert_at = 0;
-	for (Organism* organism : organismList) {
-		if (newOrganism->getInitiative() > organism->getInitiative()) 
-			break;
-		
-		insert_at++;
-	}
-	organismList.insert(organismList.begin() + insert_at, newOrganism);*/
+	
 	//dodanie na mape
 	worldMap[position.y][position.x] = newOrganism;
 }
@@ -208,6 +181,16 @@ bool World::drawTruth(int percent) {
 		return true;
 	}
 	return false;
+}
+
+Organism* World::addHuman() {
+
+	//Human* marek = new Human(*this, 7, 7);
+	//this.moveOrganismOnMap(marek, { 7,7 });
+	worldMap[7][7] = new Human(*this, 7, 7);
+	organismList.push_back(worldMap[7][7]);
+
+	return worldMap[7][7];
 }
 
 
@@ -244,4 +227,16 @@ void World::debugInfo() {
 		std::cout << organism->getName() << "( " << organism->getPosition().x << ", " << organism->getPosition().y << " )\n";
 	}
 	std::cout << "====DEBUG INFO====\n";
+}
+
+Position World::getRandomAvailablePosition() {
+	Position tmp;
+	for (int i = 0; i < 150; i++) {
+		tmp.x = rand() % worldWidth;
+		tmp.y = rand() % worldHeight;
+		if (getFieldState(&tmp) == AVAILABLE)
+			return tmp;
+	}
+
+	return Position({ 0,0,NOTAVAILABLE });
 }

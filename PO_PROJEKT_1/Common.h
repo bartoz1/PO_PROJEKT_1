@@ -15,13 +15,16 @@ struct Position {
     Position() :x(0), y(0), state(UNKNOWN) {};
     Position(int x, int y)
         :x(x), y(y), state(UNKNOWN) {};
+    Position(int x, int y, FIELD_STATE state)
+        :x(x), y(y), state(state) {};
 };
 
 enum DIRECTION {
     LEFT,
     TOP,
     RIGHT,
-    BOTTOM
+    BOTTOM,
+    NONE
 };
 
 enum ORGANISMS {
