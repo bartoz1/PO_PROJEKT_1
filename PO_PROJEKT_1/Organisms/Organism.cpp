@@ -96,3 +96,21 @@ void Organism::move(int dx, int dy) {
 	this->position.x += dx;
 	this->position.y += dy;
 }
+
+std::string Organism::toString() {
+	std::string	text = "";
+	text += std::to_string((int)(this->getOrganismType()));
+	text += " ";
+	text += std::to_string(this->getAge());
+	text += " ";
+	text += std::to_string(this->getInitiative());
+	text += " ";
+	text += std::to_string(this->getStrenght());
+	text += " ";
+	text += std::to_string(this->getPosition().x);
+	text += " ";
+	text += std::to_string(this->getPosition().y);
+	
+
+	return text;
+}

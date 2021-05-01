@@ -8,6 +8,7 @@ public:
 	void action() override;
 	Position getNextPosition(DIRECTION desired_dir) override;
 	void setNextMove(DIRECTION next);
+	void getNextMove(int c);
 	//Position getNextPosition(DIRECTION desired_dir) override;
 	//void collision(Organism* otherOrganism) override;
 

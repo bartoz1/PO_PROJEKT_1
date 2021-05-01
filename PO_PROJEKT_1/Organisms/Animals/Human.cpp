@@ -1,5 +1,6 @@
 #include "Human.h"
 #include <iostream>
+#include <conio.h>
 Human::Human(World& world, int pos_x, int pos_y)
 	:Animal(world, pos_x, pos_y, 4, 5, "czlowiek", HUMAN) {
 	nextMoveDir = NONE;
@@ -68,4 +69,24 @@ Position Human::getNextPosition(DIRECTION desired_dir) {
 
 void Human::setNextMove(DIRECTION next) {
 	this->nextMoveDir = next;
+}
+
+void Human::getNextMove(int c) {
+	switch (c) {
+	case KEY_UP:
+		this->setNextMove(TOP);
+		break;
+	case KEY_DOWN:
+		this->setNextMove(BOTTOM);
+		break;
+	case KEY_LEFT:
+		this->setNextMove(LEFT);
+		break;
+	case KEY_RIGHT:
+		this->setNextMove(RIGHT);
+		break;
+	default:
+
+		break;
+	}
 }

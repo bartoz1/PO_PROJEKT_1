@@ -15,6 +15,7 @@ class World {
 	int round;								// obecna tura
 public:
 	World(int w, int h);
+	World(int w, int h, int r);
 	~World();
 	void playRound();
 	FIELD_STATE getFieldState(Position* position) const;
@@ -25,14 +26,15 @@ public:
 	Organism* getOrganismByPos(Position position);												// zwrocenie organizmu z danej pozycji na mapie
 	void deleteOrganism(Organism* organism);
 	void addOrganism(ORGANISMS organismType, Position position);
-	//void createNewAnimal(Organism* parent1, Organism* parent2);
 	bool areDifferentPos(Position pos1, Position pos2);
 	bool drawTruth(int percent);																// funckja losuj¹ca (prawda lub falsz) z prawdopo procent %
 	Organism* addHuman();
+	void showMainMenu();
+	void convertIntoFile();
+	void upadateOrganizmList();
 private:
 	void clearMap();
 	void clearPositionOnMap(Position position);
-	void upadateOrganizmList();
 	void debugInfo();
 	Position getRandomAvailablePosition();
 

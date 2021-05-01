@@ -1,6 +1,12 @@
 #ifndef COMMON_INCLUDED
 #define COMMON_INCLUDED
 
+#define KEY_UP 72
+#define KEY_DOWN 80
+#define KEY_LEFT 75
+#define KEY_RIGHT 77
+#define KEY_ESC 27
+
 enum FIELD_STATE {
     AVAILABLE,
     OCCUPIED,
@@ -26,6 +32,7 @@ enum DIRECTION {
     BOTTOM,
     NONE
 };
+
 
 enum ORGANISMS {
     HUMAN=21,

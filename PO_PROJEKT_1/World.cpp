@@ -3,6 +3,8 @@
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
 #include <algorithm>	// remove and remove_if
+#include <stdlib.h>
+#include <fstream>
 #include "Organisms/Animals/Wolf.h"
 #include "Organisms/Animals/Sheep.h"
 #include "Organisms/Animals/Fox.h"
@@ -24,6 +26,7 @@ World::World(int w, int h)
 	for (int i = 0; i < worldHeight; i++) {
 		worldMap[i] = new Organism*[w];	
 	}
+	
 	clearMap();
 	srand(time(NULL));
 	Position pozycja;
@@ -37,6 +40,17 @@ World::World(int w, int h)
 		}
 
 	}
+}
+World::World(int w, int h, int r)
+	:worldHeight(h), worldWidth(w), round(r) {
+
+	worldMap = new Organism * *[h];
+
+	for (int i = 0; i < worldHeight; i++) {
+		worldMap[i] = new Organism * [w];
+	}
+	clearMap();
+	srand(time(NULL));
 }
 World::~World() {
 
@@ -108,16 +122,20 @@ void World::upadateOrganizmList() {
 	Organism* insert_before;
 
 	for (Organism* bornOrganism : bornOrganismList) {
-
-		insert_before = organismList.front();
-		insert_at = 0;
-		for (Organism* organism : organismList) {
-			if (bornOrganism->getInitiative() > organism->getInitiative())
-				break;
-
-			insert_at++;
+		if (organismList.size() == 0) {
+			organismList.push_back(bornOrganism);
 		}
-		organismList.insert(organismList.begin() + insert_at, bornOrganism);
+		else {
+			insert_before = organismList.front();
+			insert_at = 0;
+			for (Organism* organism : organismList) {
+				if (bornOrganism->getInitiative() > organism->getInitiative())
+					break;
+
+				insert_at++;
+			}
+			organismList.insert(organismList.begin() + insert_at, bornOrganism);
+		}
 	}
 	bornOrganismList.clear();
 }
@@ -144,6 +162,7 @@ void World::addOrganism(ORGANISMS organismType, Position position) {
 	switch (organismType)
 	{
 	case HUMAN:
+		newOrganism = new Human(*this, position.x, position.y);
 		break;
 	case WOLF:
 		newOrganism = new Wolf(*this, position.x, position.y);
@@ -181,6 +200,7 @@ void World::addOrganism(ORGANISMS organismType, Position position) {
 		break;
 	}
 	bornOrganismList.push_back(newOrganism);
+	//return newOrganism;
 	
 	//dodanie na mape
 	worldMap[position.y][position.x] = newOrganism;
@@ -203,17 +223,49 @@ bool World::drawTruth(int percent) {
 
 Organism* World::addHuman() {
 
-	//Human* marek = new Human(*this, 7, 7);
-	//this.moveOrganismOnMap(marek, { 7,7 });
 	worldMap[7][7] = new Human(*this, 7, 7);
 	organismList.push_back(worldMap[7][7]);
 
 	return worldMap[7][7];
 }
 
+void World::showMainMenu() {
+	std::string odp;
+	system("CLS");
+	std::cout << "Symulator swiata ";
+	std::cout << "Bartosz Zylwis 184477 gr4";
+	std::cout << "=========================";
+	std::cout << "1. Rozpocznij nowa gre";
+	std::cout << "2. wczytaj gre z pliku";
+	std::cout << "3. zapisz obecny stan gry do pliku";
+	std::cout << "4. powrot";
+	std::cout << "5. wylacz";
+	std::cin >> odp;
+	
+	if (odp == "1") {
+		//restart
+	}
+	else if (odp == "2") {
+
+	}
+	else if (odp == "3") {
+
+	}
+	else if (odp == "4") {
+
+	}
+	else if (odp == "5") {
+
+	}
+	else {
+		showMainMenu();
+	}
+}
+
 
 void World::playRound() {
-	debugInfo();
+	//debugInfo();
+
 	int licznik=0;
 	/*for (Organism* organism : organismList) {
 		if (organism != nullptr) {
@@ -225,6 +277,7 @@ void World::playRound() {
 	}*/
 	for (int i = 0; i < organismList.size(); i++) {
 		if (organismList[i] != nullptr) {
+			//std::cout << organismList[i]->organismToString() << endl;
 			organismList[i]->incrementAge();
 			organismList[i]->action();
 		}
@@ -257,4 +310,15 @@ Position World::getRandomAvailablePosition() {
 	}
 
 	return Position({ 0,0,NOTAVAILABLE });
+}
+
+void World::convertIntoFile() {
+	ofstream saveFile;
+	saveFile.open("save.txt");
+	saveFile << std::to_string(worldWidth) << " " << std::to_string(worldHeight) << " " << std::to_string(round) << endl;
+	for (Organism* cOrganism : organismList) {
+		
+		saveFile << cOrganism->toString() << endl;
+	}
+	saveFile.close();
 }

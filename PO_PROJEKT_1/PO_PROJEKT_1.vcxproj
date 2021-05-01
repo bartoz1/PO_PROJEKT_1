@@ -147,6 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Organisms\Plants\Dandelion.cpp" />
     <ClCompile Include="Organisms\Plants\Grass.cpp" />
     <ClCompile Include="Organisms\Animals\Antelope.cpp" />
@@ -166,6 +167,7 @@
     <ClCompile Include="Common.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Engine.h" />
     <ClInclude Include="Organisms\Animals\Antelope.h" />
     <ClInclude Include="Organisms\Animals\Fox.h" />
     <ClInclude Include="Organisms\Animals\Animal.h" />
