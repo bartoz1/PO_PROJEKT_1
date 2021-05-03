@@ -4,6 +4,7 @@
 #include <string>
 
 class Organism abstract{
+	bool alive;
 	int strenght;
 	int initiative;
 	int age;
@@ -19,6 +20,7 @@ public:
 	virtual bool willSurviveAttack(Organism& enemy);
 	virtual Position getNextAvailablePosition(Position current, DIRECTION desired_dir);
 
+	bool isAlive() const;
 	int getStrenght() const;
 	int getInitiative() const;
 	int getAge() const;
@@ -32,6 +34,7 @@ public:
 	void setAge(int age);
 	void setName(std::string name);
 	void setPosition(Position position);
+	void setDeath();
 
 	void incrementAge();
 	void move(int dx, int dy);

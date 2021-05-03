@@ -13,6 +13,6 @@ void WolfBerries::collision(Organism* otherOrganism) {
 	std::cout << otherOrganism->getName() << " zjadl " << this->getName() << " i umarl"<< "\n";
 	world.moveOrganismOnMap(otherOrganism, this->getPosition());
 	
-	world.deleteOrganism(otherOrganism);
-	world.deleteOrganism(this);
+	world.killOrganism(otherOrganism);
+	world.killOrganism(this);
 }

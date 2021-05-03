@@ -10,6 +10,7 @@ Organism::Organism(World& world, int pos_x, int pos_y, int initiative, int stren
 	this->age = 0;
 	this->position.x = pos_x;
 	this->position.y = pos_y;
+	this->alive = true;
 }
 
 bool Organism::willSurviveAttack(Organism& enemy) {
@@ -42,6 +43,11 @@ Position Organism::getNextAvailablePosition(Position current, DIRECTION desired_
 			return tmp;
 	}
 	return current;
+}
+
+bool Organism::isAlive() const
+{
+	return this->alive;
 }
 
 int Organism::getStrenght() const{
@@ -86,6 +92,10 @@ void Organism::setName(std::string name) {
 void Organism::setPosition(Position position){
 	this->position.x = position.x;
 	this->position.y = position.y;
+}
+
+void Organism::setDeath() {
+	this->alive = false;
 }
 
 void Organism::incrementAge() {

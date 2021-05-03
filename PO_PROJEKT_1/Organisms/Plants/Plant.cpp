@@ -18,5 +18,5 @@ void Plant::action() {
 void Plant::collision(Organism* otherOrganism) {
 	std::cout << otherOrganism->getName() << " zjadl " << this->getName() << "\n";
 	world.moveOrganismOnMap(otherOrganism, this->getPosition());
-	world.deleteOrganism(this);
+	world.killOrganism(this);
 }

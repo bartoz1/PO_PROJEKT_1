@@ -53,7 +53,7 @@ void Turtle::collision(Organism* otherOrganism) {
 	else {
 		std::cout << otherOrganism->getName() << " zabilo " << this->getName() << "\n";
 		world.moveOrganismOnMap(otherOrganism, this->getPosition());
-		world.deleteOrganism(this);
+		world.killOrganism(this);
 
 	}
 }

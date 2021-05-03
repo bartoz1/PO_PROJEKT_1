@@ -13,8 +13,8 @@ void PineBorscht::collision(Organism* otherOrganism) {
 	std::cout << otherOrganism->getName() << " zjadl " << this->getName() << " i umarl" << "\n";
 	world.moveOrganismOnMap(otherOrganism, this->getPosition());
 	
-	world.deleteOrganism(otherOrganism);
-	world.deleteOrganism(this);
+	world.killOrganism(otherOrganism);
+	world.killOrganism(this);
 }
 void PineBorscht::action() {
 
@@ -55,7 +55,7 @@ void PineBorscht::killNearAnimals() {
 			ORGANISMS type = world.getOrganismByPos(tmp)->getOrganismType();
 			if (type == HUMAN || type == WOLF || type == SHEEP ||
 				type == FOX || type == TURTLE || type == ANTELOPE) {
-				world.deleteOrganism(world.getOrganismByPos(tmp));
+				world.killOrganism(world.getOrganismByPos(tmp));
 			}
 		}
 

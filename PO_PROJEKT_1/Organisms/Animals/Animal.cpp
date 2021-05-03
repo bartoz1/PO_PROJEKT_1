@@ -45,13 +45,13 @@ void Animal::collision(Organism* otherOrganism) {
 	else if (this->willSurviveAttack(*otherOrganism)) {
 		// smierc atakujacego zwierzecia
 		std::cout <<otherOrganism->getName()<< " zmarl wykonujac atak na"<<this->getName()<<"\n";
-		world.deleteOrganism(otherOrganism);
+		world.killOrganism(otherOrganism);
 	}
 	else {
 		std::cout <<otherOrganism->getName() << " zabilo "<<this->getName()<<"\n";
 		Position tmp = this->getPosition();
 		world.moveOrganismOnMap(otherOrganism, tmp);
-		world.deleteOrganism(this);
+		world.killOrganism(this);
 
 	}
 }

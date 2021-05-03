@@ -24,7 +24,7 @@ public:
 	void drawWorld();
 	void moveOrganismOnMap(Organism* organism, Position position);
 	Organism* getOrganismByPos(Position position);												// zwrocenie organizmu z danej pozycji na mapie
-	void deleteOrganism(Organism* organism);
+	void killOrganism(Organism* organism);
 	void addOrganism(ORGANISMS organismType, Position position);
 	bool areDifferentPos(Position pos1, Position pos2);
 	bool drawTruth(int percent);																// funckja losuj¹ca (prawda lub falsz) z prawdopo procent %
@@ -36,6 +36,7 @@ private:
 	void clearMap();
 	void clearPositionOnMap(Position position);
 	void debugInfo();
+	void removeDeadOrganisms();
 	Position getRandomAvailablePosition();
 
 

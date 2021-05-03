@@ -12,6 +12,6 @@ void Guarana::draw() {
 void Guarana::collision(Organism* otherOrganism) {
 	std::cout << otherOrganism->getName() << " zjadl " << this->getName() << "\n";
 	world.moveOrganismOnMap(otherOrganism, this->getPosition());
-	world.deleteOrganism(this);
+	world.killOrganism(this);
 	otherOrganism->setStrenght(otherOrganism->getStrenght() + 3);
 }

@@ -62,12 +62,12 @@ void Antelope::collision(Organism* otherOrganism) {
 		if (this->willSurviveAttack(*otherOrganism)) {
 			// smierc atakujacego zwierzecia
 			std::cout << otherOrganism->getName() << " zmarl wykonujac atak na " << this->getName() << "\n";
-			world.deleteOrganism(otherOrganism);
+			world.killOrganism(otherOrganism);
 		}
 		else {
 			std::cout << otherOrganism->getName() << " zabilo " << this->getName() << "\n";
 			world.moveOrganismOnMap(otherOrganism, this->getPosition());
-			world.deleteOrganism(this);
+			world.killOrganism(this);
 
 		}
 	}

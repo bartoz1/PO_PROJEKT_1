@@ -118,8 +118,9 @@ FIELD_STATE World::getFieldState(Position *position) const {
 void World::clearPositionOnMap(Position position) {
 	worldMap[position.y][position.x] = nullptr;
 }
-// przepisanie bornOrganismList do odpowiednich miejsc w organismList
+// usuniecie niezywych i dodanie nowo narodzonych organizmow do odpowiednich miejsc w organismList
 void World::upadateOrganizmList() {
+	this->removeDeadOrganisms();
 	int insert_at;
 	Organism* insert_before;
 
@@ -128,15 +129,17 @@ void World::upadateOrganizmList() {
 			organismList.push_back(bornOrganism);
 		}
 		else {
-			insert_before = organismList.front();
-			insert_at = 0;
-			for (Organism* organism : organismList) {
-				if (bornOrganism->getInitiative() > organism->getInitiative())
-					break;
+			if (bornOrganism->isAlive()) {
+				insert_before = organismList.front();
+				insert_at = 0;
+				for (Organism* organism : organismList) {
+					if (bornOrganism->getInitiative() > organism->getInitiative())
+						break;
 
-				insert_at++;
+					insert_at++;
+				}
+				organismList.insert(organismList.begin() + insert_at, bornOrganism);
 			}
-			organismList.insert(organismList.begin() + insert_at, bornOrganism);
 		}
 	}
 	bornOrganismList.clear();
@@ -151,12 +154,10 @@ Organism* World::getOrganismByPos(Position position) {
 	return worldMap[position.y][position.x];
 }
 
-void World::deleteOrganism(Organism* organism) {
+void World::killOrganism(Organism* organism) {
 	if(worldMap[organism->getPosition().y][organism->getPosition().x] == organism)
 		worldMap[organism->getPosition().y][organism->getPosition().x] = nullptr;
-	organismList.erase(std::remove(organismList.begin(), organismList.end(), organism), organismList.end());
-	bornOrganismList.erase(std::remove(bornOrganismList.begin(), bornOrganismList.end(), organism), bornOrganismList.end());
-	delete organism;
+	organism->setDeath();
 }
 
 void World::addOrganism(ORGANISMS organismType, Position position) {
@@ -234,22 +235,12 @@ Organism* World::addHuman() {
 void World::playRound() {
 	//debugInfo();
 
-	int licznik=0;
-	/*for (Organism* organism : organismList) {
-		if (organism != nullptr) {
-			organism->action();
-			organism->incrementAge();
-
-		}
-		
-	}*/
 	for (int i = 0; i < organismList.size(); i++) {
-		if (organismList[i] != nullptr) {
+		if (organismList[i]->isAlive()) {
 			//std::cout << organismList[i]->organismToString() << endl;
 			organismList[i]->incrementAge();
 			organismList[i]->action();
 		}
-		licznik++;
 
 	}
 	upadateOrganizmList();
@@ -267,7 +258,22 @@ void World::debugInfo() {
 	}
 	std::cout << "====DEBUG INFO====\n";
 }
-
+// calkowite usuniecie niezywych organizmow z gry
+void World::removeDeadOrganisms() {
+	vector<Organism*> organismsToBeRemoved;
+	for (Organism* curOrganism : organismList) {
+		// jezeli gdy obecny organizm jest niezywy
+		if (!curOrganism->isAlive())
+			organismsToBeRemoved.push_back(curOrganism);
+	}
+	if (organismsToBeRemoved.size() > 0) {
+		for (Organism* delOrganism : organismsToBeRemoved) {
+			organismList.erase(std::remove(organismList.begin(), organismList.end(), delOrganism), organismList.end());
+			bornOrganismList.erase(std::remove(bornOrganismList.begin(), bornOrganismList.end(), delOrganism), bornOrganismList.end());
+			delete delOrganism;
+		}
+	}
+}
 Position World::getRandomAvailablePosition() {
 	Position tmp;
 	for (int i = 0; i < 150; i++) {
