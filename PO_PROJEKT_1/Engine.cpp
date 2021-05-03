@@ -107,12 +107,7 @@ void Engine::startGame() {
 	}
 	system("CLS");
 	drawSaveMenu();
-	//c = _getch();
 	startGame();
-}
-
-void Engine::saveWorld() {
-	
 }
 
 void Engine::loadWorld() {

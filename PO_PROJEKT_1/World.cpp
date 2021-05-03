@@ -21,8 +21,9 @@ World::World(int w, int h)
 	:worldHeight(h), worldWidth(w) {
 
 	round = 0;
-	worldMap = new Organism**[h];
 
+	// tworzenie mapy 2D (tablicy 2D)
+	worldMap = new Organism**[h];
 	for (int i = 0; i < worldHeight; i++) {
 		worldMap[i] = new Organism*[w];	
 	}
@@ -41,11 +42,12 @@ World::World(int w, int h)
 
 	}
 }
-World::World(int w, int h, int r)
+//konstruktor uzywany podczas wczytywania swiata z pliku
+World::World(int w, int h, int r)	
 	:worldHeight(h), worldWidth(w), round(r) {
 
-	worldMap = new Organism * *[h];
-
+	// tworzenie mapy 2D (tablicy 2D)
+	worldMap = new Organism **[h];
 	for (int i = 0; i < worldHeight; i++) {
 		worldMap[i] = new Organism * [w];
 	}
@@ -222,46 +224,12 @@ bool World::drawTruth(int percent) {
 }
 
 Organism* World::addHuman() {
+	Position pos = this->getRandomAvailablePosition();
+	worldMap[pos.y][pos.x] = new Human(*this, pos.x, pos.y);
+	organismList.push_back(worldMap[pos.y][pos.x]);
 
-	worldMap[7][7] = new Human(*this, 7, 7);
-	organismList.push_back(worldMap[7][7]);
-
-	return worldMap[7][7];
+	return worldMap[pos.y][pos.x];
 }
-
-void World::showMainMenu() {
-	std::string odp;
-	system("CLS");
-	std::cout << "Symulator swiata ";
-	std::cout << "Bartosz Zylwis 184477 gr4";
-	std::cout << "=========================";
-	std::cout << "1. Rozpocznij nowa gre";
-	std::cout << "2. wczytaj gre z pliku";
-	std::cout << "3. zapisz obecny stan gry do pliku";
-	std::cout << "4. powrot";
-	std::cout << "5. wylacz";
-	std::cin >> odp;
-	
-	if (odp == "1") {
-		//restart
-	}
-	else if (odp == "2") {
-
-	}
-	else if (odp == "3") {
-
-	}
-	else if (odp == "4") {
-
-	}
-	else if (odp == "5") {
-
-	}
-	else {
-		showMainMenu();
-	}
-}
-
 
 void World::playRound() {
 	//debugInfo();
@@ -285,7 +253,7 @@ void World::playRound() {
 
 	}
 	upadateOrganizmList();
-
+	this->round++;
 }
 
 void World::debugInfo() {

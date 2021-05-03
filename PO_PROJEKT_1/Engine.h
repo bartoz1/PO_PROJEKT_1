@@ -23,7 +23,6 @@ public:
 	void createWorld();
 	void deleteWorld();
 	void startGame();
-	void saveWorld();
 	void loadWorld();
 };
 
