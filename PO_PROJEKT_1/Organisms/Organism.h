@@ -38,7 +38,7 @@ public:
 
 	void incrementAge();
 	void move(int dx, int dy);
-	std::string toString();
+	virtual std::string toString();
 protected:
 	World& world;
 	

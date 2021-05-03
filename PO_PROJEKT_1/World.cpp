@@ -22,7 +22,7 @@ World::World(int w, int h)
 
 	round = 0;
 
-	// tworzenie mapy 2D (tablicy 2D)
+	// tworzenie mapy 2D (tablica 2D)
 	worldMap = new Organism**[h];
 	for (int i = 0; i < worldHeight; i++) {
 		worldMap[i] = new Organism*[w];	
@@ -41,6 +41,7 @@ World::World(int w, int h)
 		}
 
 	}
+	this->upadateOrganizmList();
 }
 //konstruktor uzywany podczas wczytywania swiata z pliku
 World::World(int w, int h, int r)	

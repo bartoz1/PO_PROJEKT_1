@@ -1,7 +1,7 @@
 ﻿  Common.h
   World.cpp
 C:\Users\nil11\source\repos\PO_PROJEKT_1\PO_PROJEKT_1\World.cpp(32,12): warning C4244: "argument": konwersja z "time_t" do "unsigned int", możliwa utrata danych
-C:\Users\nil11\source\repos\PO_PROJEKT_1\PO_PROJEKT_1\World.cpp(55,12): warning C4244: "argument": konwersja z "time_t" do "unsigned int", możliwa utrata danych
-C:\Users\nil11\source\repos\PO_PROJEKT_1\PO_PROJEKT_1\World.cpp(242,20): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+C:\Users\nil11\source\repos\PO_PROJEKT_1\PO_PROJEKT_1\World.cpp(56,12): warning C4244: "argument": konwersja z "time_t" do "unsigned int", możliwa utrata danych
+C:\Users\nil11\source\repos\PO_PROJEKT_1\PO_PROJEKT_1\World.cpp(239,20): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
   Generowanie kodu...
   PO_PROJEKT_1.vcxproj -> C:\Users\nil11\source\repos\PO_PROJEKT_1\Debug\PO_PROJEKT_1.exe

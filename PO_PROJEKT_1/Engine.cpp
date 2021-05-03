@@ -94,10 +94,12 @@ void Engine::deleteWorld() {
 
 void Engine::startGame() {
 	int c = 0;
-	system("CLS");
+	//system("CLS");
 	world->drawWorld();
 	while (c != KEY_ESC) {
 		c = _getch();
+		if (c == 115 || c == 83)	// duza lub mala litera S
+			human->activateSpecialAbitity();
 		if (c == KEY_DOWN || c == KEY_LEFT || c == KEY_RIGHT || c == KEY_UP) {
 			human->getNextMove(c);
 			world->playRound();
@@ -105,7 +107,7 @@ void Engine::startGame() {
 		}
 
 	}
-	system("CLS");
+	//system("CLS");
 	drawSaveMenu();
 	startGame();
 }
@@ -120,7 +122,7 @@ void Engine::loadWorld() {
 		return;
 	}
 	getline(saveFile, line);
-	vector <string> tokens;
+	vector <string> tokens;			// wektor z wartosciami swiata / organizmu
 	stringstream check1(line);
 
 	string inter;
@@ -139,7 +141,8 @@ void Engine::loadWorld() {
 	ORGANISMS type;
 	
 	Position pos;
-	int age, initiative, strenght;
+	int age, initiative, strenght, cooldown, uses;
+	bool SSactiv;
 	while (getline(saveFile, line)) {
 		std::cout << line<<endl;
 		stringstream check2(line);
@@ -162,8 +165,14 @@ void Engine::loadWorld() {
 		newOrganism->setAge(age);
 		newOrganism->setInitiative(initiative);
 		if (type == HUMAN) {
-			//pobranie coldowny specjalnej umiejetnosci
+			// specjalne wartosci wystepujace u czlowieka
+			SSactiv = (bool)stoi(tokens[6]);
+			cooldown = stoi(tokens[7]);
+			uses = stoi(tokens[8]);
 			human = (Human*)(Animal*)newOrganism;
+			human->setSpecialSkillActivated(SSactiv);
+			human->setCooldown(cooldown);
+			human->setRemainingAbilityUses(uses);
 		}
 
 

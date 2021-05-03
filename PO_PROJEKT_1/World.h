@@ -29,7 +29,6 @@ public:
 	bool areDifferentPos(Position pos1, Position pos2);
 	bool drawTruth(int percent);																// funckja losuj¹ca (prawda lub falsz) z prawdopo procent %
 	Organism* addHuman();
-	void showMainMenu();
 	void convertIntoFile();
 	void upadateOrganizmList();
 private:
