@@ -21,7 +21,7 @@ void Animal::action() {
 		break;
 	case AVAILABLE:					// wykonanie ruchu
 		
-		std::cout << this->getName() <<" move: (" << next_pos.x << ", " << next_pos.y << ") \n";
+		std::cout << this->getName() <<" moved to: (" << next_pos.x << ", " << next_pos.y << ") \n";
 		world.moveOrganismOnMap(this, next_pos);
 		this->setPosition(next_pos);
 		break;
@@ -34,7 +34,10 @@ void Animal::action() {
 void Animal::collision(Organism* otherOrganism) {
 
 	if (isSameAnimalType(otherOrganism)) {
-		giveBirth(otherOrganism);
+		if (otherOrganism->getAge() > 3 && this->getAge() > 3)
+			giveBirth(otherOrganism);
+		else
+			std::cout << "rozmnazanie " << this->getName() << " z " << otherOrganism->getName() << "jest niemozliwe ze wzgledu na wiek\n";
 	}
 	else if (this->willSurviveAttack(*otherOrganism)) { // jezeli atakujacy nie pokona przeciwnika
 		// smierc atakujacego zwierzecia

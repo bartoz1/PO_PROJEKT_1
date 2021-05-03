@@ -8,7 +8,7 @@ Human::Human(World& world, int pos_x, int pos_y)
 	this->specialSkillActivated = false;
 	this->remainingAbilityUses = 0;
 }
-void Human::draw()const {
+void Human::draw() {
 	// narysowanie rozonewj emoji usmietego czlowieka
 	std::cout << "\033[95m" << (char)02 << "\033[0m";
 }
@@ -116,18 +116,6 @@ void Human::getNextMove(int c) {
 		break;
 	}
 }
-/*
-bool Human::specialSkillIsActiv() {
-	return this->specialSkillActivated;
-}
-
-int Human::getCooldown() {
-	return this->cooldown;
-}
-
-int Human::getRemainingAbilityUses() {
-	return this->remainingAbilityUses;
-}*/
 
 void Human::activateSpecialAbitity() {
 	if (this->cooldown != 0) {

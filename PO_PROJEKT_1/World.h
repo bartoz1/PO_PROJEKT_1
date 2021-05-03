@@ -1,42 +1,42 @@
 #pragma once
 #include "Common.h"
 #include <vector>
-//#include "Organisms/Animals/Human.h"
 class Organism;
 class Human;
 using namespace std;
 
 class World {
-	Organism*** worldMap;
-	vector<Organism*> organismList;
-	vector<Organism*> bornOrganismList;
+	Organism*** worldMap;						// mapa swiata jako tablica organizmow* 2D
+	vector<Organism*> organismList;				// wektor z organizmami ulozonymi wdlg kolejnosci ruchu
+	vector<Organism*> bornOrganismList;			// wektor z organizmami narodzonymi obecnej rundy
 	int worldWidth;
 	int worldHeight;						
-	int round;								// obecna tura
+	int round;									// numer obecnej tury
 public:
 	World(int w, int h);
 	World(int w, int h, int r);
-	~World();
-	void playRound();
-	FIELD_STATE getFieldState(Position* position) const;
-	//Position getNextAvailablePosition(Position current, DIRECTION desired_dir) const;			// zwrocenie wolnej pozycji obok current
-	//Position getNextPosition(Position current, DIRECTION desired_dir) const;					// zwrocenie losowej pozycji obok current
-	void drawWorld();
-	void moveOrganismOnMap(Organism* organism, Position position);
-	Organism* getOrganismByPos(Position position);												// zwrocenie organizmu z danej pozycji na mapie
-	void killOrganism(Organism* organism);
+	void playRound();														// rozegnamie ruchow wszystkich organizmow
+	void drawWorld();													// wyrysowanie calego swiata
+	void moveOrganismOnMap(Organism* organism, Position position);			// zmiana polozenia organizmu
+	void killOrganism(Organism* organism);									// ustawienie statusu organizmy na niezywy i usuniecie z mapy
+	void clearPositionOnMap(Position position);								// wyczyszczenie pozycji na mapie - nadpisanie nulem
+	void convertIntoFile();													// zapisanie swiata do pliku
+	void upadateOrganizmList();												// dopisanie nowo narodzonych organizmow w odpowiednie miejsca wektora
+	
+	bool drawTruth(int percent) const;										// funckja losuj¹ca (prawda lub falsz) z prawdopo procent %
+	bool areDifferentPos(Position pos1, Position pos2) const;				// sprawdzenie czy podane pozycje sa rozne
+	FIELD_STATE getFieldState(Position* position) const;					// zwrocenie statusu wskazywanego pola
+	Organism* getOrganismByPos(Position position) const;					// zwrocenie organizmu z danej pozycji na mapie
+	
 	void addOrganism(ORGANISMS organismType, Position position);
-	bool areDifferentPos(Position pos1, Position pos2);
-	bool drawTruth(int percent);																// funckja losuj¹ca (prawda lub falsz) z prawdopo procent %
-	Organism* addHuman();
-	void convertIntoFile();
-	void upadateOrganizmList();
+	Organism* addHuman();													// dodanie czlowieka w losowym miejscu na mapie
+	
+	~World();
 private:
-	void clearMap();
-	void clearPositionOnMap(Position position);
-	void debugInfo();
-	void removeDeadOrganisms();
-	Position getRandomAvailablePosition();
+	void clearMap();														// nadpisanie calej mapy nullami
+	void debugInfo() const;
+	void removeDeadOrganisms();												// usuniecie niezywych organizmow z wektorow
+	Position getRandomAvailablePosition();									// zwraca pusta pozycje na mapie wybrana losowo
 
 
 };

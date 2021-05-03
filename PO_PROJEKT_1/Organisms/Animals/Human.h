@@ -3,24 +3,22 @@
 class Human : public Animal {
 	DIRECTION nextMoveDir;
 	bool specialSkillActivated;
-	int remainingAbilityUses;
-	int cooldown;
+	int remainingAbilityUses;		
+	int cooldown;							// cooldown specjalnej umiejestnosci
 public:
 	Human(World& world, int pos_x, int pos_y);
-	void draw()const override;
+	void draw() override;
 	void action() override;
-	void activateSpecialAbitity();
-	void updateUsesAndCooldown();
+	void activateSpecialAbitity();			// aktywowanie(lub nie) umiejetnosci specjalnej
 	Position getNextPosition(DIRECTION desired_dir) override;
-	void setNextMove(DIRECTION next);
 	void getNextMove(int c);
-	//bool specialSkillIsActiv();
-	//int getCooldown();
-	//int getRemainingAbilityUses();
+	void setNextMove(DIRECTION next);
 	void setSpecialSkillActivated(bool activ);
 	void setRemainingAbilityUses(int uses);
 	void setCooldown(int cooldown);
-	std::string toString();
+	std::string toString();					// zapisanie wystkich wartosci obiektu do stringa i zwrocenie go
+private:
+	void updateUsesAndCooldown();			// aktualizaja cooldownu i licz. mozliwych uzyc umiejetnosci specjalnej
 
 };
 

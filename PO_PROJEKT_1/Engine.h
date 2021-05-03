@@ -19,12 +19,13 @@ class Engine {
 public:
 	Engine();
 	void drawMainMenu();
-	void startGame();
+	void startGame();					// rozpoczecie symulacji
 	~Engine();
 private:
 	void drawSaveMenu();
-	void loadWorld();
-	void createWorld();
-	void deleteWorld();
+	void loadWorld();					// zaladowanie swiata z pliku
+	void createWorld();					// stworzenie nowego swiata zgodnie z podanymi arg
+	void deleteWorld();					// usuniecie swiata i wszystkich organizmow
+	void drawInfo() const;				// wypisanie oznaczen zwirzat i roslin
 };
 

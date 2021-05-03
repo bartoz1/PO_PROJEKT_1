@@ -3,7 +3,7 @@
 Fox::Fox(World& world, int pos_x, int pos_y)
 	:Animal(world, pos_x, pos_y, 7, 3, "lis", FOX) {
 }
-void Fox::draw()const {
+void Fox::draw() {
 	std::cout << "L";
 }
 

@@ -3,10 +3,10 @@
 class PineBorscht :	public Plant {
 public:
 	PineBorscht(World& world, int pos_x, int pos_y);
-	void draw()const override;
-	void collision(Organism* otherOrganism) override;
+	void draw() override;
 	void action() override;
+	void collision(Organism* otherOrganism) override;
 private:
-	void killNearAnimals();
+	void killNearAnimals();			// zabicie zwierzat na sasiednich polach
 };
 

@@ -4,7 +4,7 @@
 Turtle::Turtle(World& world, int pos_x, int pos_y) 
 	:Animal(world, pos_x, pos_y, 1, 2, "zolw", TURTLE) {
 }
-void Turtle::draw()const {
+void Turtle::draw() {
 	std::cout << "Z";
 }
 Position Turtle::getNextPosition(DIRECTION desired_dir) {
@@ -42,9 +42,10 @@ Position Turtle::getNextPosition(DIRECTION desired_dir) {
 void Turtle::collision(Organism* otherOrganism) {
 
 	if (isSameAnimalType(otherOrganism)) {
-
-		giveBirth(otherOrganism);
-
+		if (otherOrganism->getAge() > 3 && this->getAge() > 3)
+			giveBirth(otherOrganism);
+		else
+			std::cout << "rozmnazanie " << this->getName() << " z " << otherOrganism->getName() << "jest niemozliwe ze wzgledu na wiek\n";
 	}
 	else if (otherOrganism->getStrenght() < 5) {
 		std::cout << "Zolw przezyl atak " << otherOrganism->getName() << "\n";
@@ -57,33 +58,3 @@ void Turtle::collision(Organism* otherOrganism) {
 
 	}
 }
-/*
-void Turtle::action() {
-	DIRECTION move_to = (DIRECTION)(rand() % 4);
-	Position next_pos = getNextPosition(move_to);
-	Organism* otherOrganism;
-
-	switch (next_pos.state) {
-	case NOTAVAILABLE:		// brak mozliwosci ruchu
-		std::cout << this->getName() << "nie moze sie poruszyc\n";
-		break;
-	case OCCUPIED:			// fight lub rozmnazanie
-		std::cout << "PROBA INTERAKCJI\n";
-		otherOrganism = world.getOrganismByPos(next_pos);
-		//collision(otherOrganism);
-		otherOrganism->collision(this);
-
-		break;
-	case AVAILABLE:			// wykonanie ruchu
-
-		std::cout << "move: (" << next_pos.x << ", " << next_pos.y << ") \n";
-		world.moveOrganismOnMap(this, next_pos);
-		this->setPosition(next_pos);
-		break;
-	default:
-		std::cout << "Wystapil blad podczas wybierania nowej pozycji\n";
-		break;
-	}
-	//this->incrementAge();
-}
-*/

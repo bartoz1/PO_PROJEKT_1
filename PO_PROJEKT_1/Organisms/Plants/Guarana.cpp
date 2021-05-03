@@ -5,7 +5,7 @@ Guarana::Guarana(World& world, int pos_x, int pos_y)
 	:Plant(world, pos_x, pos_y, 0, 0, "guarana", GUARANA) {
 }
 
-void Guarana::draw()const {
+void Guarana::draw() {
 	std::cout << "\033[31m" << "g" << "\033[0m";
 }
 
@@ -14,4 +14,5 @@ void Guarana::collision(Organism* otherOrganism) {
 	world.moveOrganismOnMap(otherOrganism, this->getPosition());
 	world.killOrganism(this);
 	otherOrganism->setStrenght(otherOrganism->getStrenght() + 3);
+	std::cout << otherOrganism->getName() << " sila: " << otherOrganism->getStrenght() << endl;
 }

@@ -6,7 +6,7 @@ Antelope::Antelope(World& world, int pos_x, int pos_y)
 
 }
 
-void Antelope::draw()const {
+void Antelope::draw() {
 	std::cout << "A";
 }
 
@@ -44,9 +44,10 @@ Position Antelope::getNextPosition(DIRECTION desired_dir) {
 void Antelope::collision(Organism* otherOrganism) {
 
 	if (isSameAnimalType(otherOrganism)) {
-
-		giveBirth(otherOrganism);
-
+		if (otherOrganism->getAge() > 3 && this->getAge() > 3)
+			giveBirth(otherOrganism);
+		else
+			std::cout << "rozmnazanie " << this->getName() << " z " << otherOrganism->getName() << "jest niemozliwe ze wzgledu na wiek\n";
 	}
 	else {
 		if (world.drawTruth(50)) {

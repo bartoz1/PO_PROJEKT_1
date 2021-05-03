@@ -39,7 +39,6 @@ World::World(int w, int h)
 				break;
 			this->addOrganism((ORGANISMS)i, pozycja);
 		}
-
 	}
 	this->upadateOrganizmList();
 }
@@ -54,15 +53,6 @@ World::World(int w, int h, int r)
 	}
 	clearMap();
 	srand(time(NULL));
-}
-World::~World() {
-	this->upadateOrganizmList();
-	for (int i = 0; i < worldHeight; i++) {
-		for (int j = 0; j < worldWidth;j++) {
-			if (worldMap[i][j] != nullptr)
-				delete worldMap[i][j];
-		}
-	}
 }
 void World::clearMap() {
 	for (int i = 0; i < worldHeight; i++) {
@@ -153,7 +143,7 @@ void World::moveOrganismOnMap(Organism* organism, Position position) {
 	organism->setPosition(position);
 }
 
-Organism* World::getOrganismByPos(Position position) {
+Organism* World::getOrganismByPos(Position position) const{
 	return worldMap[position.y][position.x];
 }
 
@@ -212,7 +202,7 @@ void World::addOrganism(ORGANISMS organismType, Position position) {
 	worldMap[position.y][position.x] = newOrganism;
 }
 
-bool World::areDifferentPos(Position pos1, Position pos2) {
+bool World::areDifferentPos(Position pos1, Position pos2) const {
 	if (pos1.x != pos2.x)
 		return true;
 	if (pos1.y != pos2.y)
@@ -220,7 +210,7 @@ bool World::areDifferentPos(Position pos1, Position pos2) {
 	return false;
 }
 
-bool World::drawTruth(int percent) {
+bool World::drawTruth(int percent)const {
 	if (rand() % 101 < percent) {
 		return true;
 	}
@@ -251,13 +241,9 @@ void World::playRound() {
 	this->round++;
 }
 
-void World::debugInfo() {
+void World::debugInfo() const {
 	std::cout << "====DEBUG INFO====\n";
 	for (Organism* organism : organismList) {
-		std::cout << organism->getName() << "( " << organism->getPosition().x << ", " << organism->getPosition().y << " )\n";
-	}
-	std::cout << "narodzone:\n";
-	for (Organism* organism : bornOrganismList) {
 		std::cout << organism->getName() << "( " << organism->getPosition().x << ", " << organism->getPosition().y << " )\n";
 	}
 	std::cout << "====DEBUG INFO====\n";
@@ -278,6 +264,7 @@ void World::removeDeadOrganisms() {
 		}
 	}
 }
+// returns random available position on map or position (0,0) with status NOTAVAILABLE
 Position World::getRandomAvailablePosition() {
 	Position tmp;
 	for (int i = 0; i < 150; i++) {
@@ -286,7 +273,6 @@ Position World::getRandomAvailablePosition() {
 		if (getFieldState(&tmp) == AVAILABLE)
 			return tmp;
 	}
-
 	return Position({ 0,0,NOTAVAILABLE });
 }
 
@@ -295,8 +281,16 @@ void World::convertIntoFile() {
 	saveFile.open("save.txt");
 	saveFile << std::to_string(worldWidth) << " " << std::to_string(worldHeight) << " " << std::to_string(round) << endl;
 	for (Organism* cOrganism : organismList) {
-		
 		saveFile << cOrganism->toString() << endl;
 	}
 	saveFile.close();
+}
+World::~World() {
+	this->upadateOrganizmList();
+	for (int i = 0; i < worldHeight; i++) {
+		for (int j = 0; j < worldWidth;j++) {
+			if (worldMap[i][j] != nullptr)
+				delete worldMap[i][j];
+		}
+	}
 }

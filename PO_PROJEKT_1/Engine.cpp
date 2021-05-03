@@ -16,7 +16,8 @@ void Engine::drawMainMenu() {
 	std::cout << "=========================\n";
 	std::cout << "1. Rozpocznij nowa gre\n";
 	std::cout << "2. wczytaj gre z pliku\n";
-	std::cout << "3. wylacz\n";
+	std::cout << "3. oznaczenia zwierzat i roslin\n";
+	std::cout << "4. wylacz\n";
 	std::cin >> odp;
 
 	if (odp == "1") {
@@ -29,6 +30,11 @@ void Engine::drawMainMenu() {
 
 	}
 	else if (odp == "3") {
+		drawInfo();
+		drawMainMenu();
+		return;
+	}
+	else if (odp == "4") {
 		delete human;
 		delete world;
 		exit(0);
@@ -91,6 +97,27 @@ void Engine::deleteWorld() {
 	}
 }
 
+void Engine::drawInfo() const{
+	system("CLS");
+	std::cout << "==============================\n";
+	std::cout << "OZNACZENIA ROSLIN I ZWIERZAT\n";
+	std::cout << "\033[95m" << (char)02 << "\033[0m" << "- czlowiek\n";
+	std::cout << "\033[32m" << (char)05 << "\033[0m" << "- trawa\n";
+	std::cout << "\033[33m" << (char)15 << "\033[0m" << "- mlecz\n";
+	std::cout << "\033[31m" << "g" << "\033[0m" << "- guarana\n";
+	std::cout << "\033[34m" << "J" << "\033[0m" << "- wilcze jagody\n";
+	std::cout << "\033[31m" << "B" << "\033[0m" << "- barszcz sosnowskiego\n";
+	std::cout <<  "W" << "- wilk\n";
+	std::cout << "\033[97m" << "O" << "\033[0m" << "- owca\n";
+	std::cout <<  "L" << "- lis\n";
+	std::cout <<  "Z" << "- zolw\n";
+	std::cout <<  "A" << "- antylopa\n";
+	std::cout << "==============================\n";
+	std::cout << "kliknij przycisk by powrocic\n";
+	_getch();
+
+}
+
 void Engine::startGame() {
 	int c = 0;
 	//system("CLS");
@@ -125,8 +152,10 @@ void Engine::loadWorld() {
 	saveFile.open("save.txt");
 	std::string line;
 	if (!saveFile.good()) {
-		std::cout << "wystapil problem z wczytanie zapisu\n";
-		std::cin >> line;
+		std::cout << "nie posiadasz zapisu gry!\n";
+		std::cout << "kliknij dowolny przycisk by zakonczyc\n";
+		_getch();
+		exit(0);
 		return;
 	}
 	getline(saveFile, line);

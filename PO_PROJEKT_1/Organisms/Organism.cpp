@@ -1,4 +1,5 @@
 #include "Organism.h"
+#include <iostream>
 //Organism::Organism(World& world) {
 //	initiative = 0;
 //	strenght = 0;
@@ -98,11 +99,6 @@ void Organism::incrementAge() {
 	this->age++;
 }
 
-void Organism::move(int dx, int dy) {
-	this->position.x += dx;
-	this->position.y += dy;
-}
-
 std::string Organism::toString() {
 	std::string	text = "";
 	text += std::to_string((int)(this->getOrganismType()));
@@ -118,4 +114,6 @@ std::string Organism::toString() {
 	text += std::to_string(this->getPosition().y);
 	
 	return text;
+	return text;
 }
+

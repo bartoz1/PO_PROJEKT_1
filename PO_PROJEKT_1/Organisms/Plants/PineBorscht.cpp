@@ -5,7 +5,7 @@ PineBorscht::PineBorscht(World& world, int pos_x, int pos_y)
 	:Plant(world, pos_x, pos_y, 0, 99, "barszcz sosnowskiego", PINE_BORSCHT) {
 }
 
-void PineBorscht::draw()const {
+void PineBorscht::draw() {
 	std::cout << "\033[31m" << "B" << "\033[0m";
 }
 
@@ -51,10 +51,11 @@ void PineBorscht::killNearAnimals() {
 			tmp.y++;
 			break;
 		}
-		if (world.getFieldState(&tmp) == OCCUPIED) {
+		if (world.getFieldState(&tmp) == OCCUPIED) {	// jezeli na polu tmp znajduje sie organizm
 			ORGANISMS type = world.getOrganismByPos(tmp)->getOrganismType();
 			if (type == HUMAN || type == WOLF || type == SHEEP ||
 				type == FOX || type == TURTLE || type == ANTELOPE) {
+				std::cout << this->getName() << " zabil sasiednie zwierze: " << world.getOrganismByPos(tmp)->getName() << "\n";
 				world.killOrganism(world.getOrganismByPos(tmp));
 			}
 		}

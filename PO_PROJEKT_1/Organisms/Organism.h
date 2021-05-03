@@ -4,7 +4,7 @@
 #include <string>
 
 class Organism abstract{
-	bool alive;
+	bool alive;							// pole mowiace czy organizm jest zywy
 	int strenght;
 	int initiative;
 	int age;
@@ -16,8 +16,8 @@ public:
 	Organism(World& world, int pos_x, int pos_y, int initiative, int strenght, std::string name, ORGANISMS type);
 	virtual void action() = 0;
 	virtual void collision(Organism* otherOrganism) = 0;
-	virtual void draw() const = 0;	
-	virtual bool willSurviveAttack(Organism& enemy);
+	virtual void draw() = 0;	
+	virtual bool willSurviveAttack(Organism& enemy);		// sprawdzenie czy organizm przetrwa atak innego organizmy
 	virtual Position getNextAvailablePosition(Position current, DIRECTION desired_dir);
 
 	bool isAlive() const;
@@ -27,23 +27,18 @@ public:
 	ORGANISMS getOrganismType() const;
 	std::string getName() const;
 	Position getPosition() const;
-	//World& getWorld() const;
 
 	void setStrenght(int strenght);
 	void setInitiative(int initiative);
 	void setAge(int age);
 	void setName(std::string name);
 	void setPosition(Position position);
-	void setDeath();
+	void setDeath();										// zmiana statusu organizmu na niezywy
 
 	void incrementAge();
-	void move(int dx, int dy);
-	virtual std::string toString();
+	virtual std::string toString();							// zapisanie wystkich wartosci obiektu do stringa i zwrocenie go
 protected:
 	World& world;
 	
-private:
-
-	//~Organism();
 };
 
