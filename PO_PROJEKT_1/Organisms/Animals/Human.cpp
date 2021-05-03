@@ -8,7 +8,7 @@ Human::Human(World& world, int pos_x, int pos_y)
 	this->specialSkillActivated = false;
 	this->remainingAbilityUses = 0;
 }
-void Human::draw() {
+void Human::draw()const {
 	// narysowanie rozonewj emoji usmietego czlowieka
 	std::cout << "\033[95m" << (char)02 << "\033[0m";
 }

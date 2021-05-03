@@ -5,7 +5,7 @@ Dandelion::Dandelion(World& world, int pos_x, int pos_y)
 	:Plant(world, pos_x, pos_y, 0, 0, "mlecz", DANDELION) {
 }
 
-void Dandelion::draw() {
+void Dandelion::draw()const {
 	std::cout << "\033[33m" << (char)15 << "\033[0m";
 
 }

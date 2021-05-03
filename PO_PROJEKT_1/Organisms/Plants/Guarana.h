@@ -3,7 +3,7 @@
 class Guarana :	public Plant {
 public:
 	Guarana(World& world, int pos_x, int pos_y);
-	void draw() override;
+	void draw() const override;
 	void collision(Organism* otherOrganism) override;
 	
 };

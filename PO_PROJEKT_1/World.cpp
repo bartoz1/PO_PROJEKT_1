@@ -56,11 +56,13 @@ World::World(int w, int h, int r)
 	srand(time(NULL));
 }
 World::~World() {
-
+	this->upadateOrganizmList();
 	for (int i = 0; i < worldHeight; i++) {
-		//delete[] worldMap[i];
+		for (int j = 0; j < worldWidth;j++) {
+			if (worldMap[i][j] != nullptr)
+				delete worldMap[i][j];
+		}
 	}
-	//delete[] worldMap;
 }
 void World::clearMap() {
 	for (int i = 0; i < worldHeight; i++) {
@@ -235,6 +237,7 @@ Organism* World::addHuman() {
 
 void World::playRound() {
 	//debugInfo();
+	std::cout << "Runda: " << this->round + 1 << "\n";
 
 	for (int i = 0; i < organismList.size(); i++) {
 		if (organismList[i]->isAlive()) {

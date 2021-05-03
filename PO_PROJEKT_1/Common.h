@@ -6,6 +6,8 @@
 #define KEY_LEFT 75
 #define KEY_RIGHT 77
 #define KEY_ESC 27
+#define LETTER_S 83
+#define LETTER_s 115
 
 enum FIELD_STATE {
     AVAILABLE,

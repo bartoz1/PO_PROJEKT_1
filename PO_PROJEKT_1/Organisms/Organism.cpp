@@ -68,10 +68,6 @@ std::string Organism::getName() const {
 Position Organism::getPosition() const{
 	return this->position;
 }
-/*
-World& Organism::getWorld() const{
-	return this->world;
-}*/
 
 void Organism::setStrenght(int strenght){
 	this->strenght = strenght;
@@ -121,6 +117,5 @@ std::string Organism::toString() {
 	text += " ";
 	text += std::to_string(this->getPosition().y);
 	
-
 	return text;
 }

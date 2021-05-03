@@ -3,7 +3,7 @@
 class PineBorscht :	public Plant {
 public:
 	PineBorscht(World& world, int pos_x, int pos_y);
-	void draw() override;
+	void draw()const override;
 	void collision(Organism* otherOrganism) override;
 	void action() override;
 private:

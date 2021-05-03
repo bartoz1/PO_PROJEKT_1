@@ -5,7 +5,7 @@ Guarana::Guarana(World& world, int pos_x, int pos_y)
 	:Plant(world, pos_x, pos_y, 0, 0, "guarana", GUARANA) {
 }
 
-void Guarana::draw() {
+void Guarana::draw()const {
 	std::cout << "\033[31m" << "g" << "\033[0m";
 }
 

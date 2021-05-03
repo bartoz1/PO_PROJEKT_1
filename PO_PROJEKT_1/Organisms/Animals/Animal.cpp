@@ -4,7 +4,6 @@
 
 Animal::Animal(World& world, int pos_x, int pos_y, int initiative, int strenght, std::string name, ORGANISMS type)
 	:Organism(world, pos_x, pos_y, initiative, strenght, name, type){
-
 }
 void Animal::action() {
 	DIRECTION move_to = (DIRECTION) (rand() % 4);
@@ -12,19 +11,17 @@ void Animal::action() {
 	Organism* otherOrganism;
 
 	switch (next_pos.state)	{
-	case NOTAVAILABLE:		// brak mozliwosci ruchu
+	case NOTAVAILABLE:				// brak mozliwosci ruchu
 		std::cout << this->getName() << "nie moze sie poruszyc\n";
 		break;
-	case OCCUPIED:			// fight lub rozmnazanie
-		std::cout << "PROBA INTERAKCJI\n";
+	case OCCUPIED:					// interakcja z innym organizmem
 		otherOrganism = world.getOrganismByPos(next_pos);
-		//collision(otherOrganism);
 		otherOrganism->collision(this);
 
 		break;
-	case AVAILABLE:			// wykonanie ruchu
+	case AVAILABLE:					// wykonanie ruchu
 		
-		std::cout << "move: (" << next_pos.x << ", " << next_pos.y << ") \n";
+		std::cout << this->getName() <<" move: (" << next_pos.x << ", " << next_pos.y << ") \n";
 		world.moveOrganismOnMap(this, next_pos);
 		this->setPosition(next_pos);
 		break;
@@ -32,22 +29,19 @@ void Animal::action() {
 		std::cout <<this->getName()<< " pozostal na swojej pozycji\n";
 		break;
 	}
-	//this->incrementAge();
 }
 
 void Animal::collision(Organism* otherOrganism) {
 
 	if (isSameAnimalType(otherOrganism)) {
-
 		giveBirth(otherOrganism);
-
 	}
-	else if (this->willSurviveAttack(*otherOrganism)) {
+	else if (this->willSurviveAttack(*otherOrganism)) { // jezeli atakujacy nie pokona przeciwnika
 		// smierc atakujacego zwierzecia
-		std::cout <<otherOrganism->getName()<< " zmarl wykonujac atak na"<<this->getName()<<"\n";
+		std::cout <<otherOrganism->getName()<< " zmarl wykonujac atak na "<<this->getName()<<"\n";
 		world.killOrganism(otherOrganism);
 	}
-	else {
+	else {												//jezeli atakujacy pokona przeciwnika
 		std::cout <<otherOrganism->getName() << " zabilo "<<this->getName()<<"\n";
 		Position tmp = this->getPosition();
 		world.moveOrganismOnMap(otherOrganism, tmp);
@@ -58,7 +52,7 @@ void Animal::collision(Organism* otherOrganism) {
 
 Position Animal::getNextPosition(DIRECTION desired_dir) {
 	Position tmp;
-	for (int i = 0; i < 4; i++) {		// petla przechodz¹ca po wszystkich 
+	for (int i = 0; i < 4; i++) {						// petla przechodz¹ca po wszystkich 
 		tmp = this->getPosition();
 		switch (desired_dir) {
 		case LEFT:
@@ -85,32 +79,6 @@ Position Animal::getNextPosition(DIRECTION desired_dir) {
 	tmp.state = NOTAVAILABLE;
 	return tmp;
 }
-/*
-Position Animal::getNextAvailablePosition(Position current, DIRECTION desired_dir) {
-	Position tmp;
-	for (int i = 0; i < 4; i++) {		// petla przechodz¹ca po wszystkich 
-		tmp = current;
-		desired_dir = (DIRECTION)((desired_dir + 1) % 4);
-		switch (desired_dir)
-		{
-		case LEFT:
-			tmp.x--;
-			break;
-		case RIGHT:
-			tmp.x++;
-			break;
-		case TOP:
-			tmp.y--;
-			break;
-		case BOTTOM:
-			tmp.y++;
-			break;
-		}
-		if (world.getFieldState(&tmp) == AVAILABLE)
-			return tmp;
-	}
-	return current;
-}*/
 
 bool Animal::isSameAnimalType(Organism* animal2) {
 	if (this->getName() == animal2->getName())
@@ -119,14 +87,14 @@ bool Animal::isSameAnimalType(Organism* animal2) {
 }
 
 void Animal::giveBirth(Organism* parent2) {
-	std::cout << "maja potomstwo " << parent2->getName() << " z " << this->getName() << endl;
+	std::cout << "maja potomstwo: " << parent2->getName() << " z " << this->getName() << endl;
 	Position next_pos;
 	next_pos = getNextAvailablePosition(this->getPosition(), (DIRECTION)(rand() % 4));
 	if (!world.areDifferentPos(next_pos, this->getPosition())) {
 		next_pos = getNextAvailablePosition(parent2->getPosition(), (DIRECTION)(rand() % 4));
 	}
 	if (!world.areDifferentPos(next_pos, parent2->getPosition())) {
-		std::cout << "Nowe zwierze nie znalazlo miejsca obok rodzicow wiec umarlo :(\n";
+		std::cout << "nowe zwierze nie znalazlo miejsca obok rodzicow wiec umarlo\n";
 		return;
 	}
 

@@ -7,7 +7,7 @@ class Human : public Animal {
 	int cooldown;
 public:
 	Human(World& world, int pos_x, int pos_y);
-	void draw() override;
+	void draw()const override;
 	void action() override;
 	void activateSpecialAbitity();
 	void updateUsesAndCooldown();
@@ -21,8 +21,6 @@ public:
 	void setRemainingAbilityUses(int uses);
 	void setCooldown(int cooldown);
 	std::string toString();
-	//Position getNextPosition(DIRECTION desired_dir) override;
-	//void collision(Organism* otherOrganism) override;
 
 };
 

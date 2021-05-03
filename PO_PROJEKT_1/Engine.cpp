@@ -45,15 +45,20 @@ void Engine::drawSaveMenu() {
 	std::cout << "Bartosz Zylwis 184477 gr4\n";
 	std::cout << "=========================\n";
 	std::cout << "0. Powrot\n";
-	std::cout << "1. Wczytaj stan gry\n";
+	std::cout << "1. Nowa gra\n";
+	std::cout << "2. Wczytaj stan gry\n";
 	if(world != nullptr )
-		std::cout << "2. Zapisz obecny stan gry\n";
+		std::cout << "3. Zapisz obecny stan gry\n";
 	std::cin >> odp;
 	if (odp == "1") {
+		this->deleteWorld();
+		this->createWorld();
+	}
+	else if (odp == "2") {
 		this->loadWorld();
 		return;
 	}
-	else if (odp == "2" && world != nullptr && human != nullptr) {
+	else if (odp == "3" && world != nullptr && human != nullptr) {
 		world->convertIntoFile();
 		return;
 	}
@@ -72,12 +77,7 @@ void Engine::createWorld() {
 	std::cin >> w;
 	std::cout << "Podaj wysokosc mapy: ";
 	std::cin >> h;
-	if (world != nullptr) {
-		delete world;
-	}
-	if (human != nullptr) {
-		delete human;
-	}
+	this->deleteWorld();
 	
 	world = new World(w, h);
 	human = (Human*)(Animal*)world->addHuman();
@@ -86,9 +86,8 @@ void Engine::createWorld() {
 void Engine::deleteWorld() {
 	if (world != nullptr) {
 		delete world;
-	}
-	if (human != nullptr) {
-		delete human;
+		world = nullptr;
+		human = nullptr;
 	}
 }
 
@@ -98,18 +97,27 @@ void Engine::startGame() {
 	world->drawWorld();
 	while (c != KEY_ESC) {
 		c = _getch();
-		if (c == 115 || c == 83)	// duza lub mala litera S
-			human->activateSpecialAbitity();
-		if (c == KEY_DOWN || c == KEY_LEFT || c == KEY_RIGHT || c == KEY_UP) {
-			human->getNextMove(c);
+		if (human->isAlive()) {
+			if (c == LETTER_S || c == LETTER_s)			// duza lub mala litera S
+				human->activateSpecialAbitity();
+			if (c == KEY_DOWN || c == KEY_LEFT || c == KEY_RIGHT || c == KEY_UP) {
+				human->getNextMove(c);
+				world->playRound();
+				world->drawWorld();
+			}
+		}
+		else {											// kontynuowanie symulacji po smierci czlowieka
 			world->playRound();
 			world->drawWorld();
 		}
-
 	}
 	//system("CLS");
 	drawSaveMenu();
 	startGame();
+}
+
+Engine::~Engine() {
+	this->deleteWorld();
 }
 
 void Engine::loadWorld() {
@@ -127,19 +135,17 @@ void Engine::loadWorld() {
 
 	string inter;
 	int width, height, round;
-
 	while (getline(check1, inter, ' ')) {
 		tokens.push_back(inter);
 	}
 	width = stoi(tokens[0]);
 	height = stoi(tokens[1]);
-	round = stoi(tokens[0]);
+	round = stoi(tokens[2]);
 	
 	world = new World(width, height, round);
 	tokens.clear();
 
 	ORGANISMS type;
-	
 	Position pos;
 	int age, initiative, strenght, cooldown, uses;
 	bool SSactiv;
@@ -147,8 +153,7 @@ void Engine::loadWorld() {
 		std::cout << line<<endl;
 		stringstream check2(line);
 
-
-		while (getline(check2, inter, ' ')) {
+		while (getline(check2, inter, ' ')) {			// rozdzielenie elementow w jednej linii
 			tokens.push_back(inter);
 		}
 		type = (ORGANISMS)stoi(tokens[0]);
@@ -157,7 +162,6 @@ void Engine::loadWorld() {
 		strenght = stoi(tokens[3]);
 		pos.x = stoi(tokens[4]);
 		pos.y = stoi(tokens[5]);
-
 		
 		world->addOrganism(type, pos);
 		Organism* newOrganism = world->getOrganismByPos(pos);
@@ -174,10 +178,7 @@ void Engine::loadWorld() {
 			human->setCooldown(cooldown);
 			human->setRemainingAbilityUses(uses);
 		}
-
-
 		tokens.clear();
 	}
 	world->upadateOrganizmList();
-
 }

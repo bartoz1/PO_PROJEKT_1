@@ -6,7 +6,7 @@ Antelope::Antelope(World& world, int pos_x, int pos_y)
 
 }
 
-void Antelope::draw() {
+void Antelope::draw()const {
 	std::cout << "A";
 }
 

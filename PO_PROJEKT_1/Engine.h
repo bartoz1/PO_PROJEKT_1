@@ -19,10 +19,12 @@ class Engine {
 public:
 	Engine();
 	void drawMainMenu();
+	void startGame();
+	~Engine();
+private:
 	void drawSaveMenu();
+	void loadWorld();
 	void createWorld();
 	void deleteWorld();
-	void startGame();
-	void loadWorld();
 };
 

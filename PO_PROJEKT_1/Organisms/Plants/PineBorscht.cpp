@@ -5,8 +5,8 @@ PineBorscht::PineBorscht(World& world, int pos_x, int pos_y)
 	:Plant(world, pos_x, pos_y, 0, 99, "barszcz sosnowskiego", PINE_BORSCHT) {
 }
 
-void PineBorscht::draw() {
-	std::cout << "\033[31m" << (char)205 << "\033[0m";
+void PineBorscht::draw()const {
+	std::cout << "\033[31m" << "B" << "\033[0m";
 }
 
 void PineBorscht::collision(Organism* otherOrganism) {

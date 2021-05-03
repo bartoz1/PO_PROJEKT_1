@@ -16,7 +16,7 @@ public:
 	Organism(World& world, int pos_x, int pos_y, int initiative, int strenght, std::string name, ORGANISMS type);
 	virtual void action() = 0;
 	virtual void collision(Organism* otherOrganism) = 0;
-	virtual void draw() = 0;	
+	virtual void draw() const = 0;	
 	virtual bool willSurviveAttack(Organism& enemy);
 	virtual Position getNextAvailablePosition(Position current, DIRECTION desired_dir);
 
