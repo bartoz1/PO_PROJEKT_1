@@ -37,8 +37,6 @@ World::World(int w, int h)
 		liczbaOrg = 2;
 		if (i != PINE_BORSCHT)
 			liczbaOrg = 2 + rand() % 3;
-		if (i == WOLF)
-			liczbaOrg = 4 + rand() % 6;
 		std::cout << liczbaOrg << endl;
 		for (int j = 0; j < liczbaOrg;j++) {
 			pozycja = getRandomAvailablePosition();
