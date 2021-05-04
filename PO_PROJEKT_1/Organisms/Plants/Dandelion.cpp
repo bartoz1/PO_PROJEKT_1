@@ -10,7 +10,7 @@ void Dandelion::draw() {
 }
 void Dandelion::action() {
 	for (int i = 0;i < 3; i++) {
-		if (world.drawTruth(20)) {
+		if (world.drawTruth(PLANT_GROWTH)) {
 			Position tmpPos = getNextAvailablePosition(this->getPosition(), RIGHT);
 			if (tmpPos.state == AVAILABLE) {
 				world.addOrganism(this->getOrganismType(), tmpPos);

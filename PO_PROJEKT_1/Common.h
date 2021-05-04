@@ -8,6 +8,7 @@
 #define KEY_ESC 27
 #define LETTER_S 83
 #define LETTER_s 115
+#define PLANT_GROWTH 13
 
 enum FIELD_STATE {
     AVAILABLE,

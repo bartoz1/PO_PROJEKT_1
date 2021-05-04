@@ -1,3 +1,2 @@
-﻿  Engine.cpp
-C:\Users\nil11\source\repos\PO_PROJEKT_1\PO_PROJEKT_1\Engine.cpp(144): warning C4717: "Engine::startGame": cykliczne we wszystkich ścieżkach przepływu, funkcja spowoduje przepełnienie stosu w trakcie wykonywania
+﻿  Animal.cpp
   PO_PROJEKT_1.vcxproj -> C:\Users\nil11\source\repos\PO_PROJEKT_1\Debug\PO_PROJEKT_1.exe

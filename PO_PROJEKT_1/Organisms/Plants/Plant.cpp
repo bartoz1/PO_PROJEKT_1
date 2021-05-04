@@ -6,7 +6,7 @@ Plant::Plant(World& world, int pos_x, int pos_y, int initiative, int strenght, s
 }
 
 void Plant::action() {
-	if (!world.drawTruth(20))
+	if (!world.drawTruth(PLANT_GROWTH))
 		return;
 
 	Position tmpPos = getNextAvailablePosition(this->getPosition(), RIGHT);

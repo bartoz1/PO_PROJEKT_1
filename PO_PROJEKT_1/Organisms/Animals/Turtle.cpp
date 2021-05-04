@@ -45,7 +45,7 @@ void Turtle::collision(Organism* otherOrganism) {
 		if (otherOrganism->getAge() > 3 && this->getAge() > 3)
 			giveBirth(otherOrganism);
 		else
-			std::cout << "rozmnazanie " << this->getName() << " z " << otherOrganism->getName() << "jest niemozliwe ze wzgledu na wiek\n";
+			std::cout << "rozmnazanie " << this->getName() << " z " << otherOrganism->getName() << " jest niemozliwe ze wzgledu na wiek\n";
 	}
 	else if (otherOrganism->getStrenght() < 5) {
 		std::cout << "Zolw przezyl atak " << otherOrganism->getName() << "\n";

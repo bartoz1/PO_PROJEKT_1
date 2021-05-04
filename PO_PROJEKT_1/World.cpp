@@ -31,9 +31,16 @@ World::World(int w, int h)
 	clearMap();
 	srand(time(NULL));
 	Position pozycja;
-	// dodawanie zwierzat w losowe miejsca
+	int liczbaOrg = 0;
+	// dodawanie zwierzat i roslin w losowe miejsca
 	for (int i = (int)WOLF;i < (int)CYBER_SHEEP; i += 1) {
-		for (int j = 0; j < 2;j++) {
+		liczbaOrg = 2;
+		if (i != PINE_BORSCHT)
+			liczbaOrg = 2 + rand() % 3;
+		if (i == WOLF)
+			liczbaOrg = 4 + rand() % 6;
+		std::cout << liczbaOrg << endl;
+		for (int j = 0; j < liczbaOrg;j++) {
 			pozycja = getRandomAvailablePosition();
 			if (pozycja.state == NOTAVAILABLE)
 				break;
