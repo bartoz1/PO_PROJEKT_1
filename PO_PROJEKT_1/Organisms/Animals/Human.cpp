@@ -24,7 +24,7 @@ void Human::action() {
 		std::cout << this->getName() << "nie moze sie poruszyc\n";
 		break;
 	case OCCUPIED:			// fight lub rozmnazanie
-		std::cout << "PROBA INTERAKCJI\n";
+		//std::cout << "PROBA INTERAKCJI\n";
 		otherOrganism = world.getOrganismByPos(next_pos);
 		//collision(otherOrganism);
 		otherOrganism->collision(this);

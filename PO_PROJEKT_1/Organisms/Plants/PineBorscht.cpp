@@ -12,7 +12,6 @@ void PineBorscht::draw() {
 void PineBorscht::collision(Organism* otherOrganism) {
 	std::cout << otherOrganism->getName() << " zjadl " << this->getName() << " i umarl" << "\n";
 	world.moveOrganismOnMap(otherOrganism, this->getPosition());
-	
 	world.killOrganism(otherOrganism);
 	world.killOrganism(this);
 }
@@ -20,7 +19,7 @@ void PineBorscht::action() {
 
 	this->killNearAnimals();
 
-	// rozszadzanie
+	// rozszadzanie (5% prawdopodobienstwa)
 	if (!world.drawTruth(5))
 		return;
 

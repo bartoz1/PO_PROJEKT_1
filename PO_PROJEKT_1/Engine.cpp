@@ -13,6 +13,7 @@ void Engine::drawMainMenu() {
 	system("CLS");
 	std::cout << "Symulator swiata \n";
 	std::cout << "Bartosz Zylwis 184477 gr4\n";
+	std::cout << "poruszanie sie - strzalki | umiejetnosc - s\n";
 	std::cout << "=========================\n";
 	std::cout << "1. Rozpocznij nowa gre\n";
 	std::cout << "2. wczytaj gre z pliku\n";
@@ -79,6 +80,9 @@ void Engine::drawSaveMenu() {
 void Engine::createWorld() {
 	int w, h;
 	system("CLS");
+	std::cout << "Symulator swiata \n";
+	std::cout << "Bartosz Zylwis 184477 gr4\n";
+	std::cout << "=========================\n";
 	std::cout << "Podaj szerokosc mapy: ";
 	std::cin >> w;
 	std::cout << "Podaj wysokosc mapy: ";
@@ -99,19 +103,21 @@ void Engine::deleteWorld() {
 
 void Engine::drawInfo() const{
 	system("CLS");
+	std::cout << "Symulator swiata \n";
+	std::cout << "Bartosz Zylwis 184477 gr4\n";
 	std::cout << "==============================\n";
 	std::cout << "OZNACZENIA ROSLIN I ZWIERZAT\n";
-	std::cout << "\033[95m" << (char)02 << "\033[0m" << "- czlowiek\n";
-	std::cout << "\033[32m" << (char)05 << "\033[0m" << "- trawa\n";
-	std::cout << "\033[33m" << (char)15 << "\033[0m" << "- mlecz\n";
-	std::cout << "\033[31m" << "g" << "\033[0m" << "- guarana\n";
-	std::cout << "\033[34m" << "J" << "\033[0m" << "- wilcze jagody\n";
-	std::cout << "\033[31m" << "B" << "\033[0m" << "- barszcz sosnowskiego\n";
-	std::cout <<  "W" << "- wilk\n";
-	std::cout << "\033[97m" << "O" << "\033[0m" << "- owca\n";
-	std::cout <<  "L" << "- lis\n";
-	std::cout <<  "Z" << "- zolw\n";
-	std::cout <<  "A" << "- antylopa\n";
+	std::cout << "\033[95m" << (char)02 << "\033[0m" << " - czlowiek\n";
+	std::cout << "\033[32m" << (char)05 << "\033[0m" << " - trawa\n";
+	std::cout << "\033[33m" << (char)15 << "\033[0m" << " - mlecz\n";
+	std::cout << "\033[31m" << "g" << "\033[0m" << " - guarana\n";
+	std::cout << "\033[34m" << "J" << "\033[0m" << " - wilcze jagody\n";
+	std::cout << "\033[31m" << "B" << "\033[0m" << " - barszcz sosnowskiego\n";
+	std::cout <<  "W" << " - wilk\n";
+	std::cout << "\033[97m" << "O" << "\033[0m" << " - owca\n";
+	std::cout <<  "L" << " - lis\n";
+	std::cout <<  "Z" << " - zolw\n";
+	std::cout <<  "A" << " - antylopa\n";
 	std::cout << "==============================\n";
 	std::cout << "kliknij przycisk by powrocic\n";
 	_getch();
@@ -133,7 +139,7 @@ void Engine::startGame() {
 				world->drawWorld();
 			}
 		}
-		else {											// kontynuowanie symulacji po smierci czlowieka
+		else if (c == KEY_DOWN || c == KEY_LEFT || c == KEY_RIGHT || c == KEY_UP) {											// kontynuowanie symulacji po smierci czlowieka
 			world->playRound();
 			world->drawWorld();
 		}

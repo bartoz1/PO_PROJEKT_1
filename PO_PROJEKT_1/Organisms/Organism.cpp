@@ -1,11 +1,5 @@
 #include "Organism.h"
 #include <iostream>
-//Organism::Organism(World& world) {
-//	initiative = 0;
-//	strenght = 0;
-//	age = 0;
-//	world = nullptr;
-//}
 Organism::Organism(World& world, int pos_x, int pos_y, int initiative, int strenght, std::string name, ORGANISMS type)
 	: world(world), initiative(initiative), strenght(strenght), name(name), type(type) {
 	this->age = 0;

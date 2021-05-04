@@ -9,6 +9,7 @@
 #define LETTER_S 83
 #define LETTER_s 115
 #define PLANT_GROWTH 13
+#define REPROD_AGE 2
 
 enum FIELD_STATE {
     AVAILABLE,

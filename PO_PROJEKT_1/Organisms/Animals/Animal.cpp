@@ -34,18 +34,20 @@ void Animal::action() {
 void Animal::collision(Organism* otherOrganism) {
 
 	if (isSameAnimalType(otherOrganism)) {
-		if (otherOrganism->getAge() > 3 && this->getAge() > 3)
+		if (otherOrganism->getAge() > REPROD_AGE && this->getAge() > REPROD_AGE)
 			giveBirth(otherOrganism);
 		else
 			std::cout << "rozmnazanie " << this->getName() << " z " << otherOrganism->getName() << " jest niemozliwe ze wzgledu na wiek\n";
 	}
 	else if (this->willSurviveAttack(*otherOrganism)) { // jezeli atakujacy nie pokona przeciwnika
 		// smierc atakujacego zwierzecia
-		std::cout <<otherOrganism->getName()<< " zmarl wykonujac atak na "<<this->getName()<<"\n";
+		std::cout << otherOrganism->getName() << " zmarl wykonujac atak na " << this->getName();
+		std::cout << " ("<<this->getPosition().x << ", "<<this->getPosition().y<<")\n";
 		world.killOrganism(otherOrganism);
 	}
 	else {												//jezeli atakujacy pokona przeciwnika
-		std::cout <<otherOrganism->getName() << " zabilo "<<this->getName()<<"\n";
+		std::cout <<otherOrganism->getName() << " zabilo "<<this->getName();
+		std::cout << " (" << this->getPosition().x << ", " << this->getPosition().y << ")\n";
 		Position tmp = this->getPosition();
 		world.moveOrganismOnMap(otherOrganism, tmp);
 		world.killOrganism(this);

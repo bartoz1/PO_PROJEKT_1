@@ -12,8 +12,8 @@ void Antelope::draw() {
 
 Position Antelope::getNextPosition(DIRECTION desired_dir) {
 	Position tmp;
-	for (int i = 0; i < 4; i++) {		// petla przechodz¹ca po wszystkich 
-		for (int j = 2; j > 0; j--) {
+	for (int j = 2; j > 0; j--) {
+		for (int i = 0; i < 4; i++) {		
 			tmp = this->getPosition();
 			switch (desired_dir) {
 			case LEFT:
@@ -44,7 +44,7 @@ Position Antelope::getNextPosition(DIRECTION desired_dir) {
 void Antelope::collision(Organism* otherOrganism) {
 
 	if (isSameAnimalType(otherOrganism)) {
-		if (otherOrganism->getAge() > 3 && this->getAge() > 3)
+		if (otherOrganism->getAge() > REPROD_AGE && this->getAge() > REPROD_AGE)
 			giveBirth(otherOrganism);
 		else
 			std::cout << "rozmnazanie " << this->getName() << " z " << otherOrganism->getName() << " jest niemozliwe ze wzgledu na wiek\n";
@@ -53,6 +53,7 @@ void Antelope::collision(Organism* otherOrganism) {
 		if (world.drawTruth(50)) {
 			Position tmp = this->getPosition();
 			Position next_pos = this->getNextAvailablePosition(tmp, LEFT);
+			// jezeli antylopa ma mozliwosci uciekniecia (wolne sasiednie pole)
 			if (world.areDifferentPos(next_pos, this->getPosition())) {
 				std::cout << this->getName() << " uciekla przed " << otherOrganism->getName() << "\n";
 				world.moveOrganismOnMap(this, next_pos);
@@ -62,11 +63,13 @@ void Antelope::collision(Organism* otherOrganism) {
 		}
 		if (this->willSurviveAttack(*otherOrganism)) {
 			// smierc atakujacego zwierzecia
-			std::cout << otherOrganism->getName() << " zmarl wykonujac atak na " << this->getName() << "\n";
+			std::cout << otherOrganism->getName() << " zmarl wykonujac atak na " << this->getName();
+			std::cout << " (" << this->getPosition().x << ", " << this->getPosition().y << ")\n";
 			world.killOrganism(otherOrganism);
 		}
 		else {
-			std::cout << otherOrganism->getName() << " zabilo " << this->getName() << "\n";
+			std::cout << otherOrganism->getName() << " zabilo " << this->getName();
+			std::cout << " (" << this->getPosition().x << ", " << this->getPosition().y << ")\n";
 			world.moveOrganismOnMap(otherOrganism, this->getPosition());
 			world.killOrganism(this);
 

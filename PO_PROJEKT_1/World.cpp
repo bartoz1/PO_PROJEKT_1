@@ -35,9 +35,9 @@ World::World(int w, int h)
 	// dodawanie zwierzat i roslin w losowe miejsca
 	for (int i = (int)WOLF;i < (int)CYBER_SHEEP; i += 1) {
 		liczbaOrg = 2;
-		if (i != PINE_BORSCHT)
-			liczbaOrg = 2 + rand() % 3;
-		std::cout << liczbaOrg << endl;
+		if (i != PINE_BORSCHT)			
+			liczbaOrg = 2 + rand() % ((w*h)/10)/5;				// urozmaicenie liczcby wystapien zwierzat danego gatunku
+
 		for (int j = 0; j < liczbaOrg;j++) {
 			pozycja = getRandomAvailablePosition();
 			if (pozycja.state == NOTAVAILABLE)
@@ -225,7 +225,8 @@ bool World::drawTruth(int percent)const {
 Organism* World::addHuman() {
 	Position pos = this->getRandomAvailablePosition();
 	worldMap[pos.y][pos.x] = new Human(*this, pos.x, pos.y);
-	organismList.push_back(worldMap[pos.y][pos.x]);
+	bornOrganismList.push_back(worldMap[pos.y][pos.x]);
+	this->upadateOrganizmList();
 
 	return worldMap[pos.y][pos.x];
 }
@@ -236,7 +237,6 @@ void World::playRound() {
 
 	for (int i = 0; i < organismList.size(); i++) {
 		if (organismList[i]->isAlive()) {
-			//std::cout << organismList[i]->organismToString() << endl;
 			organismList[i]->incrementAge();
 			organismList[i]->action();
 		}
@@ -297,5 +297,8 @@ World::~World() {
 			if (worldMap[i][j] != nullptr)
 				delete worldMap[i][j];
 		}
+		delete[] worldMap[i];
 	}
+	delete[] worldMap;
+	worldMap = nullptr;
 }
