@@ -1,5 +1,9 @@
-﻿  World.cpp
+﻿  Engine.cpp
+  PO_PROJEKT_1.cpp
+  World.cpp
 C:\Users\nil11\source\repos\PO_PROJEKT_1\PO_PROJEKT_1\World.cpp(32,12): warning C4244: "argument": konwersja z "time_t" do "unsigned int", możliwa utrata danych
-C:\Users\nil11\source\repos\PO_PROJEKT_1\PO_PROJEKT_1\World.cpp(60,12): warning C4244: "argument": konwersja z "time_t" do "unsigned int", możliwa utrata danych
-C:\Users\nil11\source\repos\PO_PROJEKT_1\PO_PROJEKT_1\World.cpp(238,20): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+C:\Users\nil11\source\repos\PO_PROJEKT_1\PO_PROJEKT_1\World.cpp(61,12): warning C4244: "argument": konwersja z "time_t" do "unsigned int", możliwa utrata danych
+C:\Users\nil11\source\repos\PO_PROJEKT_1\PO_PROJEKT_1\World.cpp(239,20): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+  Generowanie kodu...
+C:\Users\nil11\source\repos\PO_PROJEKT_1\PO_PROJEKT_1\Engine.cpp(150): warning C4717: "Engine::startGame": cykliczne we wszystkich ścieżkach przepływu, funkcja spowoduje przepełnienie stosu w trakcie wykonywania
   PO_PROJEKT_1.vcxproj -> C:\Users\nil11\source\repos\PO_PROJEKT_1\Debug\PO_PROJEKT_1.exe

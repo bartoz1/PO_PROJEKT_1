@@ -131,7 +131,7 @@ void Engine::startGame() {
 	while (c != KEY_ESC) {
 		c = _getch();
 		if (human->isAlive()) {
-			if (c == LETTER_S || c == LETTER_s)			// duza lub mala litera S
+			if (c == LETTER_S || c == LETTER_s)	
 				human->activateSpecialAbitity();
 			if (c == KEY_DOWN || c == KEY_LEFT || c == KEY_RIGHT || c == KEY_UP) {
 				human->getNextMove(c);

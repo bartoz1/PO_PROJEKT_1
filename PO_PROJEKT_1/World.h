@@ -16,7 +16,7 @@ public:
 	World(int w, int h);
 	World(int w, int h, int r);
 	void playRound();														// rozegnamie ruchow wszystkich organizmow
-	void drawWorld();													// wyrysowanie calego swiata
+	void drawWorld();														// wyrysowanie calego swiata
 	void moveOrganismOnMap(Organism* organism, Position position);			// zmiana polozenia organizmu
 	void killOrganism(Organism* organism);									// ustawienie statusu organizmy na niezywy i usuniecie z mapy
 	void clearPositionOnMap(Position position);								// wyczyszczenie pozycji na mapie - nadpisanie nulem

@@ -35,9 +35,10 @@ World::World(int w, int h)
 	// dodawanie zwierzat i roslin w losowe miejsca
 	for (int i = (int)WOLF;i < (int)CYBER_SHEEP; i += 1) {
 		liczbaOrg = 2;
+		int g = ((w * h) / 10) / 5;
 		if (i != PINE_BORSCHT)			
-			liczbaOrg = 2 + rand() % ((w*h)/10)/5;				// urozmaicenie liczcby wystapien zwierzat danego gatunku
-
+			liczbaOrg = 2 + rand() % (1+ ((w*h)/10)/5);				// urozmaicenie liczcby wystapien zwierzat danego gatunku
+		
 		for (int j = 0; j < liczbaOrg;j++) {
 			pozycja = getRandomAvailablePosition();
 			if (pozycja.state == NOTAVAILABLE)
